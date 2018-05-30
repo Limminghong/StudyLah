@@ -46,27 +46,29 @@ public class SignupActivity extends AppCompatActivity {
                 }
 
                 // Check if password is empty
-                if(TextUtils.isEmpty(password)) {
+                else if(TextUtils.isEmpty(password)) {
                     Toast.makeText(SignupActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
                 }
 
                 // Set your own additional constraints
 
-                // Create a new user
-                auth.createUserWithEmailAndPassword(email, password).
-                        addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(!task.isSuccessful()) {
-                                    Toast.makeText(SignupActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // Signup successful, got to main activity
-                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                                    // End the activity
-                                    finish();
+                else {
+                    // Create a new user
+                    auth.createUserWithEmailAndPassword(email, password).
+                            addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(SignupActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // Signup successful, got to main activity
+                                        startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                        // End the activity
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
     }

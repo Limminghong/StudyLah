@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         // Firebase Auth Instance
         auth = FirebaseAuth.getInstance();
 
-        // Inistialise widgets
+        // Initialise widgets
         mButtonLogin = findViewById(R.id.buttonLogin);
         mEditTextEmail = findViewById(R.id.editTextUsernameLogin);
         mEditTextPw = findViewById(R.id.editTextPasswordLogin);
@@ -60,27 +60,29 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 // Check if password is empty
-                if(TextUtils.isEmpty(password)) {
+                else if(TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
                 }
 
                 // Set your own additional constraints
 
-                // Authenticate user
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(!task.isSuccessful()) {
-                                    // Error occurred
-                                    Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                else {
+                    // Authenticate user
+                    auth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(!task.isSuccessful()) {
+                                        // Error occurred
+                                        Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
     }
