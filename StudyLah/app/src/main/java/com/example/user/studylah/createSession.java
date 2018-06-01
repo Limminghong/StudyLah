@@ -3,10 +3,12 @@ package com.example.user.studylah;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,8 +38,19 @@ public class createSession extends AppCompatActivity {
         mButtonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewSession();
-                backToMainActivity();
+                if(TextUtils.isEmpty(mEditTextModule.getText().toString().trim())) {
+                    Toast.makeText(createSession.this, "Enter Module(s)", Toast.LENGTH_SHORT).show();
+                }
+                else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim())) {
+                    Toast.makeText(createSession.this, "Enter Timing", Toast.LENGTH_SHORT).show();
+                }
+                else if(TextUtils.isEmpty(mEditTextLocation.getText().toString().trim())) {
+                    Toast.makeText(createSession.this, "Enter Location", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    addNewSession();
+                    backToMainActivity();
+                }
             }
         });
     }
