@@ -11,7 +11,7 @@
         android:id="@+id/buttonHost"
         android:layout_width="360dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="68dp"
         android:text="Host"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

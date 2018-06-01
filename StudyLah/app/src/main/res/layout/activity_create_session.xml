@@ -22,12 +22,12 @@
         android:layout_marginBottom="288dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/buttonHost"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCreate"
         app:layout_constraintStart_toStartOf="@+id/textViewLocation"
         app:layout_constraintTop_toBottomOf="@+id/editTextTiming" />
 
     <Button
-        android:id="@+id/buttonHost"
+        android:id="@+id/buttonCreate"
         android:layout_width="360dp"
         android:layout_height="0dp"
         android:layout_marginBottom="19dp"
