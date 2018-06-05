@@ -28,7 +28,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         // Initialise widgets
-        mEditTextEmail = findViewById(R.id.editTextUsernameSignup);
+        mEditTextEmail = findViewById(R.id.editTextEmailSignup);
         mEditTextPw = findViewById(R.id.editTextPasswordSignup);
         mBtnSignup = findViewById(R.id.buttonSignup);
 
@@ -61,16 +61,21 @@ public class SignupActivity extends AppCompatActivity {
                                     if (!task.isSuccessful()) {
                                         Toast.makeText(SignupActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        // Signup successful, got to main activity
-                                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                        // End the activity
-                                        finish();
+                                        // User sign up successful
+                                        signUpSuccess();
                                     }
                                 }
                             });
                 }
             }
         });
+    }
+
+    private void signUpSuccess() {
+        // Signup successful, got to main activity
+        Intent intent = new Intent(SignupActivity.this, CreateProfile.class);
+        startActivity(intent);
+        // End the activity
+        finish();
     }
 }

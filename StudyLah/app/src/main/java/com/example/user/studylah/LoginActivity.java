@@ -2,7 +2,6 @@ package com.example.user.studylah;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,8 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
     private TextView mTextViewSignup;
@@ -37,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Initialise widgets
         mButtonLogin = findViewById(R.id.buttonLogin);
-        mEditTextEmail = findViewById(R.id.editTextUsernameLogin);
+        mEditTextEmail = findViewById(R.id.editTextEmailLogin);
         mEditTextPw = findViewById(R.id.editTextPasswordLogin);
         mTextViewSignup = findViewById(R.id.textViewSignup);
 
