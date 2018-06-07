@@ -10,12 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class createSession extends AppCompatActivity {
     private EditText mEditTextModule;
     private EditText mEditTextTiming;
+    private EditText mEditTextDate;
     private EditText mEditTextLocation;
 
     private Button mButtonCreate;
@@ -25,9 +28,12 @@ public class createSession extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_session);
 
+        // Initialise widgets
         mEditTextModule = (EditText)findViewById(R.id.editTextModule);
         mEditTextTiming = (EditText)findViewById(R.id.editTextTiming);
+        mEditTextDate = (EditText) findViewById(R.id.editTextDate);
         mEditTextLocation = (EditText)findViewById(R.id.editTextLocation);
+
         mButtonCreate = (Button)findViewById(R.id.buttonCreate);
 
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -43,6 +49,8 @@ public class createSession extends AppCompatActivity {
                 }
                 else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim())) {
                     Toast.makeText(createSession.this, "Enter Timing", Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(mEditTextDate.getText().toString().trim())) {
+                    Toast.makeText(createSession.this, "Enter Date", Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.isEmpty(mEditTextLocation.getText().toString().trim())) {
                     Toast.makeText(createSession.this, "Enter Location", Toast.LENGTH_SHORT).show();
@@ -62,15 +70,21 @@ public class createSession extends AppCompatActivity {
     }*/
 
     private void addNewSession() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String username = user.getDisplayName().toString();
         String module = mEditTextModule.getText().toString().trim();
         String timing = mEditTextTiming.getText().toString().trim();
+        String date = mEditTextDate.getText().toString().trim();
         String location = mEditTextLocation.getText().toString().trim();
         // Write message to database
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("sessions");
         // Session object to store info
         Session session = new Session();
+        session.setHost(username);
         session.setModule(module);
         session.setTiming(timing);
+        session.setDate(date);
         session.setLocation(location);
         String sessionId = mDatabase.push().getKey();
         mDatabase.child(sessionId).setValue(session);
