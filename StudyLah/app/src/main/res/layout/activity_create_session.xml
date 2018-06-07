@@ -18,11 +18,12 @@
 
     <EditText
         android:id="@+id/editTextDate"
-        android:layout_width="316dp"
+        android:layout_width="313dp"
         android:layout_height="0dp"
         android:layout_marginEnd="19dp"
         android:layout_marginStart="19dp"
         android:ems="10"
+        android:hint="Select Date"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/textViewLocation"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +33,7 @@
     <TextView
         android:id="@+id/textViewLocation"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="23dp"
         android:text="Location:"
         app:layout_constraintBottom_toTopOf="@+id/editTextLocation"
         app:layout_constraintEnd_toEndOf="@+id/textViewModule"
@@ -42,11 +43,12 @@
 
     <EditText
         android:id="@+id/editTextLocation"
-        android:layout_width="335dp"
+        android:layout_width="334dp"
         android:layout_height="0dp"
         android:layout_marginBottom="233dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="Enter Location"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/buttonCreate"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,6 +87,7 @@
         android:layout_marginTop="19dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:hint="Choose Module"
         app:layout_constraintBottom_toBottomOf="@+id/textViewTiming"
         app:layout_constraintEnd_toEndOf="@+id/editTextTiming"
         app:layout_constraintStart_toStartOf="@+id/textViewModule"
@@ -109,6 +112,7 @@
         android:layout_marginTop="18dp"
         android:ems="10"
         android:inputType="time"
+        android:hint="Select Time"
         app:layout_constraintBottom_toBottomOf="@+id/textViewDate"
         app:layout_constraintEnd_toEndOf="@+id/editTextDate"
         app:layout_constraintStart_toStartOf="@+id/textViewTiming"
