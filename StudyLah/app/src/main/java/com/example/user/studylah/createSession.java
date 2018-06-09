@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -23,10 +26,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-public class createSession extends AppCompatActivity {
+public class createSession extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "createSession";
 
-    private EditText mEditTextModule;
+    private Spinner mSpinnerModule;
+    private String moduleCode;
     private EditText mEditTextTiming;
     private EditText mEditTextDate;
     private EditText mEditTextLocation;
@@ -42,7 +46,12 @@ public class createSession extends AppCompatActivity {
         setContentView(R.layout.activity_create_session);
 
         // Initialise widgets
-        mEditTextModule = (EditText)findViewById(R.id.editTextModule);
+        mSpinnerModule = (Spinner)findViewById(R.id.spinnerModule);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(createSession.this, R.array.modules, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerModule.setAdapter(adapter);
+        mSpinnerModule.setOnItemSelectedListener(createSession.this);
+
         mEditTextTiming = (EditText)findViewById(R.id.editTextTiming);
         mEditTextDate = (EditText) findViewById(R.id.editTextDate);
         mEditTextLocation = (EditText)findViewById(R.id.editTextLocation);
@@ -57,7 +66,7 @@ public class createSession extends AppCompatActivity {
         mButtonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(mEditTextModule.getText().toString().trim())) {
+                if(TextUtils.isEmpty(moduleCode)) {
                     Toast.makeText(createSession.this, "Enter Module(s)", Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim())) {
@@ -143,7 +152,7 @@ public class createSession extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         String username = user.getDisplayName().toString();
-        String module = mEditTextModule.getText().toString().trim();
+        String module = moduleCode;
         String timing = mEditTextTiming.getText().toString().trim();
         String date = mEditTextDate.getText().toString().trim();
         String location = mEditTextLocation.getText().toString().trim();
@@ -164,5 +173,15 @@ public class createSession extends AppCompatActivity {
         Intent intent = new Intent(createSession.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        moduleCode = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

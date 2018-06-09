@@ -6,4 +6,9 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
+    <string-array name="modules">
+        <item>CS1010</item>
+        <item>CS1231</item>
+        <item>CS2040C</item>
+    </string-array>
 </resources>

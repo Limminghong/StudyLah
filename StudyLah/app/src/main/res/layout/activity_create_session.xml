@@ -79,15 +79,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextModule"
+    <Spinner
+        android:id="@+id/spinnerModule"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginBottom="18dp"
         android:layout_marginTop="19dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Choose Module"
         app:layout_constraintBottom_toBottomOf="@+id/textViewTiming"
         app:layout_constraintEnd_toEndOf="@+id/editTextTiming"
         app:layout_constraintStart_toStartOf="@+id/textViewModule"
