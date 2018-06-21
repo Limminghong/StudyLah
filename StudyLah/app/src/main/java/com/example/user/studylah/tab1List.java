@@ -47,7 +47,9 @@ public class tab1List extends Fragment {
                 {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    list.add(session.getHost().toString() + session.getTiming().toString());
+                    list.add(session.getHost().toString() + "  " + session.getTiming().toString()
+                    + "  " + session.getModule().toString() + "  " + session.getLocation().toString()
+                    + "  " + session.getdate().toString());
 
                 }
                 listView.setAdapter(adapter);
