@@ -2,6 +2,7 @@ package com.example.user.studylah;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.app.VoiceInteractor;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,14 +20,29 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class createSession extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class createSession extends AppCompatActivity {
     private static final String TAG = "createSession";
 
     private Spinner mSpinnerModule;
@@ -34,6 +50,8 @@ public class createSession extends AppCompatActivity implements AdapterView.OnIt
     private EditText mEditTextTiming;
     private EditText mEditTextDate;
     private EditText mEditTextLocation;
+
+    private ArrayList<String> moduleCodes;
 
     private Button mButtonCreate;
 
@@ -47,16 +65,14 @@ public class createSession extends AppCompatActivity implements AdapterView.OnIt
 
         // Initialise widgets
         mSpinnerModule = (Spinner)findViewById(R.id.spinnerModule);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(createSession.this, R.array.modules, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerModule.setAdapter(adapter);
-        mSpinnerModule.setOnItemSelectedListener(createSession.this);
-
         mEditTextTiming = (EditText)findViewById(R.id.editTextTiming);
         mEditTextDate = (EditText) findViewById(R.id.editTextDate);
         mEditTextLocation = (EditText)findViewById(R.id.editTextLocation);
 
         mButtonCreate = (Button)findViewById(R.id.buttonCreate);
+
+        moduleCodes = new ArrayList<String>();
+        loadSpinnerData();
 
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -140,6 +156,18 @@ public class createSession extends AppCompatActivity implements AdapterView.OnIt
                 mEditTextDate.setText(date);
             }
         };
+
+        mSpinnerModule.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                moduleCode = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     /*@Override
@@ -175,13 +203,33 @@ public class createSession extends AppCompatActivity implements AdapterView.OnIt
         finish();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        moduleCode = parent.getItemAtPosition(position).toString();
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = this.getAssets().open("moduleList.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
+    private void loadSpinnerData() {
+        try {
+            JSONArray moduleList = new JSONArray(loadJSONFromAsset());
+            for(int i = 0; i < moduleList.length(); i++) {
+                JSONObject modules = moduleList.getJSONObject(i);
+                String module = modules.getString("ModuleCode");
+                moduleCodes.add(module);
+            }
+            mSpinnerModule.setAdapter(new ArrayAdapter<String>(createSession.this, android.R.layout.simple_spinner_dropdown_item, moduleCodes));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
