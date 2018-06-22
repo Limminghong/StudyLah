@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Hashtable;
 
 public class createSession extends AppCompatActivity {
     private static final String TAG = "createSession";
@@ -52,6 +54,7 @@ public class createSession extends AppCompatActivity {
     private EditText mEditTextLocation;
 
     private ArrayList<String> moduleCodes;
+    private Hashtable moduleChecker;
 
     private Button mButtonCreate;
 
@@ -72,6 +75,7 @@ public class createSession extends AppCompatActivity {
         mButtonCreate = (Button)findViewById(R.id.buttonCreate);
 
         moduleCodes = new ArrayList<String>();
+        moduleChecker = new Hashtable();
         loadAutoData();
 
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,16 +86,16 @@ public class createSession extends AppCompatActivity {
         mButtonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(mAutoModule.getText().toString().trim())) {
-                    Toast.makeText(createSession.this, "Enter Module(s)", Toast.LENGTH_SHORT).show();
+                if(checkModuleValidity(mAutoModule.getText().toString().trim())) {
+                    Toast.makeText(createSession.this, "Please Enter A Valid Module", Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim())) {
-                    Toast.makeText(createSession.this, "Enter Timing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(createSession.this, "Please Enter Timing", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(mEditTextDate.getText().toString().trim())) {
-                    Toast.makeText(createSession.this, "Enter Date", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(createSession.this, "Please Enter Date", Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.isEmpty(mEditTextLocation.getText().toString().trim())) {
-                    Toast.makeText(createSession.this, "Enter Location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(createSession.this, "Please Enter Location", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     addNewSession();
@@ -214,10 +218,21 @@ public class createSession extends AppCompatActivity {
                 JSONObject modules = moduleList.getJSONObject(i);
                 String module = modules.getString("ModuleCode");
                 moduleCodes.add(module);
+                moduleChecker.put(module, new Integer(1));
             }
             mAutoModule.setAdapter(new ArrayAdapter<String>(createSession.this, android.R.layout.simple_spinner_dropdown_item, moduleCodes));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkModuleValidity(String mod) {
+        if (!moduleChecker.containsKey(mod)) {
+            return true;
+        }
+        else if (TextUtils.isEmpty(mod)) {
+            return true;
+        }
+        else return false;
     }
 }
