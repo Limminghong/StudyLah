@@ -72,7 +72,7 @@ public class tab3Host extends Fragment {
                             "Location: " + session.getLocation().toString() + "\n" +
                             "Timing: " + session.getTiming().toString();
 
-                    list.add(module_info);
+                    if (session.getHost() == name) list.add(module_info);
                 }
                 hostView.setAdapter(adapter);
             }

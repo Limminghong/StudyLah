@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="87dp"
         android:text="TextView"
+        android:textStyle="italic"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

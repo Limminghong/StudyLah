@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/module"
         android:layout_width="0dp"
-        android:layout_height="69dp"
+        android:layout_height="93dp"
         android:text="TextView"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
