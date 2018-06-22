@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -45,8 +46,7 @@ import java.util.Calendar;
 public class createSession extends AppCompatActivity {
     private static final String TAG = "createSession";
 
-    private Spinner mSpinnerModule;
-    private String moduleCode;
+    private AutoCompleteTextView mAutoModule;
     private EditText mEditTextTiming;
     private EditText mEditTextDate;
     private EditText mEditTextLocation;
@@ -64,7 +64,7 @@ public class createSession extends AppCompatActivity {
         setContentView(R.layout.activity_create_session);
 
         // Initialise widgets
-        mSpinnerModule = (Spinner)findViewById(R.id.spinnerModule);
+        mAutoModule = (AutoCompleteTextView) findViewById(R.id.autoModule);
         mEditTextTiming = (EditText)findViewById(R.id.editTextTiming);
         mEditTextDate = (EditText) findViewById(R.id.editTextDate);
         mEditTextLocation = (EditText)findViewById(R.id.editTextLocation);
@@ -72,7 +72,7 @@ public class createSession extends AppCompatActivity {
         mButtonCreate = (Button)findViewById(R.id.buttonCreate);
 
         moduleCodes = new ArrayList<String>();
-        loadSpinnerData();
+        loadAutoData();
 
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -82,7 +82,7 @@ public class createSession extends AppCompatActivity {
         mButtonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(moduleCode)) {
+                if(TextUtils.isEmpty(mAutoModule.getText().toString().trim())) {
                     Toast.makeText(createSession.this, "Enter Module(s)", Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim())) {
@@ -156,18 +156,6 @@ public class createSession extends AppCompatActivity {
                 mEditTextDate.setText(date);
             }
         };
-
-        mSpinnerModule.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                moduleCode = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     /*@Override
@@ -180,7 +168,7 @@ public class createSession extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         String username = user.getDisplayName().toString();
-        String module = moduleCode;
+        String module = mAutoModule.getText().toString().trim();
         String timing = mEditTextTiming.getText().toString().trim();
         String date = mEditTextDate.getText().toString().trim();
         String location = mEditTextLocation.getText().toString().trim();
@@ -219,7 +207,7 @@ public class createSession extends AppCompatActivity {
         return json;
     }
 
-    private void loadSpinnerData() {
+    private void loadAutoData() {
         try {
             JSONArray moduleList = new JSONArray(loadJSONFromAsset());
             for(int i = 0; i < moduleList.length(); i++) {
@@ -227,7 +215,7 @@ public class createSession extends AppCompatActivity {
                 String module = modules.getString("ModuleCode");
                 moduleCodes.add(module);
             }
-            mSpinnerModule.setAdapter(new ArrayAdapter<String>(createSession.this, android.R.layout.simple_spinner_dropdown_item, moduleCodes));
+            mAutoModule.setAdapter(new ArrayAdapter<String>(createSession.this, android.R.layout.simple_spinner_dropdown_item, moduleCodes));
         } catch (JSONException e) {
             e.printStackTrace();
         }
