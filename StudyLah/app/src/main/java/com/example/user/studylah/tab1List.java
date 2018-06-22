@@ -3,7 +3,9 @@ package com.example.user.studylah;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,8 @@ import java.util.ArrayList;
 public class tab1List extends Fragment {
 
     ListView listView;
+    //filters the sessions strings based on the module
+    EditText filter;
     // Authenticating Firebase for session list
     FirebaseDatabase database;
     DatabaseReference ref;
@@ -41,6 +45,7 @@ public class tab1List extends Fragment {
 
         session = new Session();
         listView = (ListView) rootView.findViewById(R.id.listView);
+        filter = (EditText) rootView.findViewById(R.id.search_filter);
 
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("sessions");
@@ -59,7 +64,7 @@ public class tab1List extends Fragment {
                 {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = "Module: " + session.getModule().toString() + "\n" +
+                    String module_info = session.getModule().toString() + "\n" +
                             "Date: " + session.getdate().toString() + "\n"
                             + "Location: " + session.getLocation().toString() + "\n" +
                             "Time: " + session.getTiming().toString() + "\n"
@@ -80,6 +85,26 @@ public class tab1List extends Fragment {
 
             }
         });
+
+        //using the filter to search through the modules
+        filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (tab1List.this).adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         return rootView;
     }
 }
