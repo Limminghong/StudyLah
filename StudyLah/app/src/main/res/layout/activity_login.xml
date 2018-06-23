@@ -1,70 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
-
-    <TextView
-        android:id="@+id/textViewStudyLahLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:layout_marginTop="160dp"
-        android:text="StudyLah!"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEmailLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".LoginActivity"
+    tools:layout_editor_absoluteY="25dp"
+    android:background="@drawable/login_background">
 
     <EditText
         android:id="@+id/editTextEmailLogin"
-        android:layout_width="359dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="287dp"
+        android:layout_height="51dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="192dp"
+        android:background="@drawable/box"
         android:ems="10"
+        android:fontFamily="@font/poiret_one"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editTextPasswordLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStudyLahLogin" />
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="259dp" />
 
     <EditText
         android:id="@+id/editTextPasswordLogin"
-        android:layout_width="359dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
+        android:layout_width="287dp"
+        android:layout_height="51dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/box"
         android:ems="10"
+        android:fontFamily="@font/poiret_one"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmailLogin" />
+        android:textAlignment="center"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="352dp" />
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="360dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSignup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordLogin" />
+        android:layout_width="294dp"
+        android:layout_height="73dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="102dp"
+        android:background="@drawable/login_button"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="436dp" />
+
+    <ImageView
+        android:id="@+id/studylah"
+        android:layout_width="215dp"
+        android:layout_height="74dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp"
+        app:srcCompat="@drawable/study_lah" />
+
+    <ImageView
+        android:id="@+id/forgot_pass"
+        android:layout_width="177dp"
+        android:layout_height="27dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="221dp"
+        app:srcCompat="@drawable/forgot_password" />
 
     <TextView
         android:id="@+id/textViewSignup"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="Not a member yet? Sign Up now!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="71dp"
+        android:fontFamily="@font/poiret_one"
+        android:text="Not a member yet? Sign up now!"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+</RelativeLayout>

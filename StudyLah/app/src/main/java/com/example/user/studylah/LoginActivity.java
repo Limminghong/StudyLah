@@ -1,11 +1,16 @@
 package com.example.user.studylah;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button mButtonLogin;
     private EditText mEditTextEmail;
     private EditText mEditTextPw;
-
     private FirebaseAuth auth;
 
     @Override
@@ -38,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         mEditTextPw = findViewById(R.id.editTextPasswordLogin);
         mTextViewSignup = findViewById(R.id.textViewSignup);
 
+        //button animation
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
+
         mTextViewSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(animAlpha);
+
                 String email = mEditTextEmail.getText().toString().trim();
                 String password = mEditTextPw.getText().toString().trim();
                 // Check if email is empty
