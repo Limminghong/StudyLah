@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,9 +37,13 @@ public class SignupActivity extends AppCompatActivity {
         // Firebase Auth Instance
         auth = FirebaseAuth.getInstance();
 
+        //button animation
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
+
         mBtnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(animAlpha);
                 String email = mEditTextEmail.getText().toString().trim();
                 String password = mEditTextPw.getText().toString().trim();
                 // Check if email is empty

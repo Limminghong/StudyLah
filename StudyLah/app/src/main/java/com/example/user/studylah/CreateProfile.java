@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,9 +30,13 @@ public class CreateProfile extends AppCompatActivity {
         mEditTextUsername = (EditText)findViewById(R.id.editTextUsername);
         mButtonCreateProfile = (Button)findViewById(R.id.buttonCreateProfile);
 
+        //button animation
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
+
         mButtonCreateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(animAlpha);
                 String username = mEditTextUsername.getText().toString();
 
                 if(TextUtils.isEmpty(username)) {

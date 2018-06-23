@@ -14,6 +14,7 @@
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/module"
         app:layout_constraintEnd_toStartOf="@+id/module"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_myplaces" />
