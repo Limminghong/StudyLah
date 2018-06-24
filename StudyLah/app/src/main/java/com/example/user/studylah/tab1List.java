@@ -64,18 +64,12 @@ public class tab1List extends Fragment {
                 {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = session.getModule().toString() + "\n" +
-                            "Date: " + session.getdate().toString() + "\n"
-                            + "Location: " + session.getLocation().toString() + "\n" +
-                            "Time: " + session.getTiming().toString() + "\n"
-                            + "Host: " + session.getHost().toString();
-                    //Spannable string used to make the first module line twice as big
-                    SpannableString ss1 = new SpannableString(module_info);
-                    ss1.setSpan(new RelativeSizeSpan(2f), 0,5,0);
-                    //Mimicking the concatenation of the string
-                    String final_module = "" + ss1.toString();
-
-                    list.add(final_module);
+                    String module_info = session.getModule() + "\n" +
+                            "Date: " + session.getdate() + "\n"
+                            + "Location: " + session.getLocation() + "\n" +
+                            "Time: " + session.getTiming() + "\n"
+                            + "Host: " + session.getHost();
+                    list.add(module_info);
                 }
                 listView.setAdapter(adapter);
             }

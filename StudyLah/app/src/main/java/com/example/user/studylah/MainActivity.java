@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextAppearance(this, R.style.RobotoBoldTextAppearance);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -156,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Signup User and return user to LoginActivity
+    // Signout User and return user to LoginActivity
     private void userLogout() {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);

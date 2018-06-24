@@ -32,7 +32,7 @@ public class tab3Host extends Fragment {
     //get the name of the currently signed in user
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     //name of the user
-    String name = user.getDisplayName().toString();
+    String name = user.getDisplayName();
 
     //make reference to the database used
     DatabaseReference ref;
@@ -59,18 +59,17 @@ public class tab3Host extends Fragment {
         //initialise adapter to connect firebase data to the list
         adapter = new ArrayAdapter<>(getActivity(),R.layout.hosting,R.id.hosting,list);
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ValueEventListener valueEventListener = ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //lists out all the Sessions that are available
-                for(DataSnapshot ds: dataSnapshot.getChildren())
-                {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = "Module: " + session.getModule().toString() + "\n" +
-                            "Date: " + session.getdate().toString() + "\n" +
-                            "Location: " + session.getLocation().toString() + "\n" +
-                            "Timing: " + session.getTiming().toString();
+                    String module_info = "Module: " + session.getModule() + "\n" +
+                            "Date: " + session.getdate() + "\n" +
+                            "Location: " + session.getLocation() + "\n" +
+                            "Timing: " + session.getTiming();
 
                     if (session.getHost() == name) list.add(module_info);
                 }
