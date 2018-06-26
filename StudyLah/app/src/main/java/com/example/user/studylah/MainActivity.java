@@ -96,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_settings:
                 return true;
+            case R.id.profile:
+                userProfile();
+                return true;
+            case R.id.feedback:
+                userFeedback();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -162,6 +168,20 @@ public class MainActivity extends AppCompatActivity {
     private void userLogout() {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // Go to user profile page
+    private void userProfile() {
+        Intent intent = new Intent(MainActivity.this, UserProfile.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // Go to user profile feedback
+    private void userFeedback() {
+        Intent intent = new Intent(MainActivity.this, UserFeedback.class);
         startActivity(intent);
         finish();
     }

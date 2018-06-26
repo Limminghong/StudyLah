@@ -3,13 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.user.studylah.MainActivity">
     <item
+        android:id="@+id/profile"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_person_pin_black_24dp"
+        android:iconTint="@color/white"
+        android:title="Profile"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/feedback"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_rate"
+        android:iconTint="@color/white"
+        android:title="Feedback"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="1"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:iconTint="@color/white"
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/logout"
         android:orderInCategory="2"
+        android:icon="@drawable/ic_logout"
+        android:iconTint="@color/white"
         android:title="Logout"
         app:showAsAction="never" />
+
 </menu>

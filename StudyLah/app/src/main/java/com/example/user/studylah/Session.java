@@ -1,11 +1,14 @@
 package com.example.user.studylah;
 
+import java.util.ArrayList;
+
 public class Session {
     String host;
     String module;
     String timing;
     String date;
     String location;
+    String[] participants;
 
     public void setHost(String host) {this.host = host;}
 
@@ -22,6 +25,8 @@ public class Session {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public void setParticipants(String[] participants) {this.participants = participants; }
 
     public String getHost() {
         return host;
@@ -42,4 +47,6 @@ public class Session {
     public String getLocation() {
         return location;
     }
+
+    public String[] getParticipants() {return participants; }
 }

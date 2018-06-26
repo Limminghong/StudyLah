@@ -10,10 +10,12 @@ import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,14 +56,13 @@ public class tab1List extends Fragment {
         list = new ArrayList<>();
 
         //initialise adapter to connect firebase data to the list
-        adapter = new ArrayAdapter<>(getActivity(),R.layout.session,R.id.module,list);
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.session, R.id.module, list);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //lists out all the Sessions that are available
-                for(DataSnapshot ds: dataSnapshot.getChildren())
-                {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
                     String module_info = session.getModule() + "\n" +
@@ -78,6 +79,7 @@ public class tab1List extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
 
         //using the filter to search through the modules
@@ -98,6 +100,13 @@ public class tab1List extends Fragment {
             }
         });
 
+        //what do do when an item is selected
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Toast.makeText(getActivity(), "This works", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return rootView;
     }

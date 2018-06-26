@@ -29,10 +29,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".user_panel"
-            android:label="@string/title_activity_user_panel"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
