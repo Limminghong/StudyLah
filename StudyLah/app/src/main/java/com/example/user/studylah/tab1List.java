@@ -37,8 +37,8 @@ public class tab1List extends Fragment {
     DatabaseReference ref;
 
     //Creating list to store all the session information
-    ArrayList<String> list;
-    ArrayAdapter<String> adapter;
+    public ArrayList<String> list;
+    public ArrayAdapter<String> adapter;
     Session session;
 
     @Override
