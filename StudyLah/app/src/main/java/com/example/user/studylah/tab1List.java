@@ -1,7 +1,9 @@
 package com.example.user.studylah;
 
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -100,9 +102,29 @@ public class tab1List extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Toast.makeText(getActivity(), "This works", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertDig = new AlertDialog.Builder(getActivity());
+                alertDig.setMessage("Do you want to join this session?");
+                alertDig.setCancelable(false);
+
+                alertDig.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "Cool it works", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                alertDig.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                alertDig.create().show();
             }
         });
+
+
 
         return rootView;
     }
