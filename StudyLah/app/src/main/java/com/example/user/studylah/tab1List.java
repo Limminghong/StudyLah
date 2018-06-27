@@ -65,11 +65,7 @@ public class tab1List extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = session.getModule() + "\n" +
-                            "Date: " + session.getdate() + "\n"
-                            + "Location: " + session.getLocation() + "\n" +
-                            "Time: " + session.getTiming() + "\n"
-                            + "Host: " + session.getHost();
+                    String module_info = session.getModule();
                     list.add(module_info);
                 }
                 listView.setAdapter(adapter);
