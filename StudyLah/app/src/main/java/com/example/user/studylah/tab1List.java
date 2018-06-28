@@ -19,15 +19,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class tab1List extends Fragment {
 
@@ -42,6 +48,13 @@ public class tab1List extends Fragment {
     public ArrayList<String> list;
     public ArrayAdapter<String> adapter;
     Session session;
+
+    //Creating array to store all the id
+    Map<Integer, String> sessionId = new HashMap<>();
+
+    // Get current username
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    String currentUsername = currentUser.getDisplayName().toString();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +82,7 @@ public class tab1List extends Fragment {
                     session = ds.getValue(Session.class);
                     String module_info = session.getModule();
                     list.add(module_info);
+                    sessionId.put(list.indexOf(module_info), session.getId());
                 }
                 listView.setAdapter(adapter);
             }
@@ -106,10 +120,34 @@ public class tab1List extends Fragment {
                 alertDig.setMessage("Do you want to join this session?");
                 alertDig.setCancelable(false);
 
+                String key = sessionId.get(i);
+                final DatabaseReference sessionRef = database.getReference("/sessions/" + key);
+
                 alertDig.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "Cool it works", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getActivity(), "Cool it works", Toast.LENGTH_SHORT).show();
+                        // Add student
+                        addParticipant(sessionRef);
+                    }
+
+                    public void addParticipant(DatabaseReference sRef) {
+                        sRef.runTransaction(new Transaction.Handler() {
+                            @Override
+                            public Transaction.Result doTransaction(MutableData mutableData) {
+                                Session s = mutableData.getValue(Session.class);
+                                if(!s.participants.containsKey(currentUsername)) s.participantCount += 1;
+                                s.participants.put(currentUsername, true);
+
+                                mutableData.setValue(s);
+                                return Transaction.success(mutableData);
+                            }
+
+                            @Override
+                            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                            }
+                        });
                     }
                 });
 
@@ -122,10 +160,10 @@ public class tab1List extends Fragment {
 
                 alertDig.create().show();
             }
+
         });
-
-
 
         return rootView;
     }
+
 }

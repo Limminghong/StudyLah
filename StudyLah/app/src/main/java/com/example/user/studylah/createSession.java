@@ -43,7 +43,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class createSession extends AppCompatActivity {
     private static final String TAG = "createSession";
@@ -186,6 +188,7 @@ public class createSession extends AppCompatActivity {
         session.setDate(date);
         session.setLocation(location);
         String sessionId = mDatabase.push().getKey();
+        session.setId(sessionId);
         mDatabase.child(sessionId).setValue(session);
     }
 

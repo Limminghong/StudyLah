@@ -1,14 +1,24 @@
 package com.example.user.studylah;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Session {
+    String id;
     String host;
     String module;
     String timing;
     String date;
     String location;
-    String[] participants;
+
+    int participantCount = 0;
+    Map<String, Boolean> participants = new HashMap<>();
+
+    Session(){};
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setHost(String host) {this.host = host;}
 
@@ -26,7 +36,11 @@ public class Session {
         this.location = location;
     }
 
-    public void setParticipants(String[] participants) {this.participants = participants; }
+    public void setParticipants(Map<String, Boolean> participants) {
+        this.participants = participants;
+    }
+
+    public String getId() {return id;}
 
     public String getHost() {
         return host;
@@ -48,5 +62,5 @@ public class Session {
         return location;
     }
 
-    public String[] getParticipants() {return participants; }
+    public Map<String, Boolean> getParticipants() { return participants; }
 }
