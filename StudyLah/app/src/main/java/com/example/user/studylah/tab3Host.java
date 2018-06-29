@@ -38,8 +38,8 @@ public class tab3Host extends Fragment {
     DatabaseReference ref;
 
     //Creating list to store all the session information
-    ArrayList<String> list;
-    ArrayAdapter<String> adapter;
+    ArrayList<String> list3;
+    ArrayAdapter<String> adapter3;
     Session session;
 
     @Override
@@ -54,10 +54,10 @@ public class tab3Host extends Fragment {
         ref = database.getReference("sessions");
 
         //initialise list
-        list = new ArrayList<>();
+        list3 = new ArrayList<>();
 
         //initialise adapter to connect firebase data to the list
-        adapter = new ArrayAdapter<>(getActivity(),R.layout.hosting,R.id.hosting,list);
+        adapter3 = new ArrayAdapter<>(getActivity(),R.layout.hosting,R.id.hosting,list3);
 
         ValueEventListener valueEventListener = ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -66,14 +66,11 @@ public class tab3Host extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = "Module: " + session.getModule() + "\n" +
-                            "Date: " + session.getdate() + "\n" +
-                            "Location: " + session.getLocation() + "\n" +
-                            "Timing: " + session.getTiming();
+                    String module_info = "Module: " + session.getModule();
 
-                    if (session.getHost() == name) list.add(module_info);
+                    if (session.getHost() == name) list3.add(module_info);
                 }
-                hostView.setAdapter(adapter);
+                hostView.setAdapter(adapter3);
             }
 
             @Override

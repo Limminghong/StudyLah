@@ -9,10 +9,12 @@
     <TextView
         android:id="@+id/hosting"
         android:layout_width="0dp"
-        android:layout_height="87dp"
+        android:layout_height="107dp"
+        android:fontFamily="@font/poiret_one"
         android:text="TextView"
-        android:textStyle="italic"
-        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
