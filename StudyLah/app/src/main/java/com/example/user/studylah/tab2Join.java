@@ -57,7 +57,7 @@ public class tab2Join extends Fragment {
         list2 = new ArrayList<>();
 
         //initialise adapter to connect firebase data to the list
-        adapter2 = new ArrayAdapter<>(getActivity(),R.layout.hosting,R.id.hosting,list2);
+        adapter2 = new ArrayAdapter<>(getActivity(),R.layout.session,R.id.module,list2);
 
         ValueEventListener valueEventListener = ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,7 +68,7 @@ public class tab2Join extends Fragment {
                     session = ds.getValue(Session.class);
                     String module_info = "Module: " + session.getModule();
 
-                    if (session.getParticipants().containsValue(true)) list2.add(module_info);
+                    if (session.getParticipants().containsKey(name)) list2.add(module_info);
                 }
                 joinList.setAdapter(adapter2);
             }

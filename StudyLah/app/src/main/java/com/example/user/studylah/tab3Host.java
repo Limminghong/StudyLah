@@ -8,6 +8,8 @@ import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -57,7 +59,10 @@ public class tab3Host extends Fragment {
         list3 = new ArrayList<>();
 
         //initialise adapter to connect firebase data to the list
-        adapter3 = new ArrayAdapter<>(getActivity(),R.layout.hosting,R.id.hosting,list3);
+        adapter3 = new ArrayAdapter<>(getActivity(),R.layout.session,R.id.module,list3);
+
+        //button animation
+        final Animation animAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
 
         ValueEventListener valueEventListener = ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -84,6 +89,7 @@ public class tab3Host extends Fragment {
         mButtonHost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(animAlpha);
                 Intent intent = new Intent(getActivity(), createSession.class);
                 startActivity(intent);
             }
