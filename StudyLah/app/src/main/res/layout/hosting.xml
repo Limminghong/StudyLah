@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/hosting"
         android:layout_width="0dp"
-        android:layout_height="107dp"
+        android:layout_height="196dp"
         android:fontFamily="@font/poiret_one"
         android:text="TextView"
         android:textAlignment="center"

@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/module"
         android:layout_width="0dp"
-        android:layout_height="82dp"
+        android:layout_height="206dp"
         android:fontFamily="@font/poiret_one"
         android:text="TextView"
         android:textAlignment="center"

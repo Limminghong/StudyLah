@@ -66,7 +66,11 @@ public class tab2Join extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = "Module: " + session.getModule();
+                    String module_info = session.getModule() + "\n" +
+                            "Host: " + session.getHost() + "\n" +
+                            "Timing: " + session.getTiming() + "\n" +
+                            "Date: " + session.getdate() + "\n" +
+                            "Location: " + session.getLocation();
 
                     if (session.getParticipants().containsKey(name)) list2.add(module_info);
                 }
