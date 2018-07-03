@@ -8,6 +8,7 @@ import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class tab2Join extends Fragment {
     Button mButtonHost;
@@ -42,6 +45,9 @@ public class tab2Join extends Fragment {
     ArrayAdapter<String> adapter2;
     Session session;
 
+    //Creating array to store all the id
+    Map<Integer, String> sessionId = new HashMap<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,6 +68,8 @@ public class tab2Join extends Fragment {
         ValueEventListener valueEventListener = ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //clear list to prevent bug
+                list2.clear();
                 //lists out all the Sessions that are available
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
@@ -72,7 +80,10 @@ public class tab2Join extends Fragment {
                             "Date: " + session.getdate() + "\n" +
                             "Location: " + session.getLocation();
 
-                    if (session.getParticipants().containsKey(name)) list2.add(module_info);
+                    if (session.getParticipants().containsKey(name)) {
+                        list2.add(module_info);
+                        sessionId.put(list2.indexOf(module_info), session.getId());
+                    }
                 }
                 joinList.setAdapter(adapter2);
             }
@@ -80,6 +91,16 @@ public class tab2Join extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        joinList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                String key = sessionId.get(i);
+                Intent intent = new Intent(getActivity(), ViewJoinedSession.class);
+                intent.putExtra("KEY", key);
+                startActivity(intent);
             }
         });
 
