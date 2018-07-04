@@ -1,8 +1,10 @@
 package com.example.user.studylah;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,9 +23,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class tab3Host extends Fragment {
     Button mButtonHost;
@@ -43,6 +50,9 @@ public class tab3Host extends Fragment {
     ArrayList<String> list3;
     ArrayAdapter<String> adapter3;
     Session session;
+
+    //Creating array to store all the id
+    Map<Integer, String> sessionId = new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,7 +87,10 @@ public class tab3Host extends Fragment {
                             "Date: " + session.getdate() + "\n" +
                             "Location: " + session.getLocation();
 
-                    if (session.getHost() == name) list3.add(module_info);
+                    if (session.getHost().equals(name)){
+                        list3.add(module_info);
+                        sessionId.put(list3.indexOf(module_info), session.getId());
+                    }
                 }
                 hostView.setAdapter(adapter3);
             }
@@ -97,6 +110,34 @@ public class tab3Host extends Fragment {
                 Intent intent = new Intent(getActivity(), createSession.class);
                 startActivity(intent);
             }
+        });
+
+        hostView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                AlertDialog.Builder alertDig = new AlertDialog.Builder(getActivity());
+                alertDig.setMessage("Do you want to edit this session?");
+                alertDig.setCancelable(false);
+
+                alertDig.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Goes to the edit activity
+                        Intent intent = new Intent(getActivity(), editSession.class);
+                        startActivity(intent);
+                    }
+                });
+
+                alertDig.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                alertDig.create().show();
+            }
+
         });
 
         return rootView;
