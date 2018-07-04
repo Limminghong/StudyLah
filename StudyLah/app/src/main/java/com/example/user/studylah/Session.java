@@ -36,6 +36,10 @@ public class Session {
         this.location = location;
     }
 
+    public void setParticipantCount(int count) {
+        this.participantCount = count;
+    }
+
     public void setParticipants(Map<String, Boolean> participants) {
         this.participants = participants;
     }
@@ -60,6 +64,10 @@ public class Session {
 
     public String getLocation() {
         return location;
+    }
+
+    public int getParticipantCount() {
+        return participantCount;
     }
 
     public Map<String, Boolean> getParticipants() { return participants; }

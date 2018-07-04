@@ -77,6 +77,9 @@ public class tab1List extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //lists out all the Sessions that are available
+                //Clear the list and sessionId
+                list.clear();
+                sessionId.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);

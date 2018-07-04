@@ -31,7 +31,7 @@ public class ViewJoinedSession extends AppCompatActivity {
         mButtonLeave = (Button)findViewById(R.id.buttonLeave);
 
         // Get Key
-        key = getIntent().getStringExtra("KEY");
+        key = getIntent().getStringExtra("KEY_LEAVE");
 
         // Get database reference
         database = FirebaseDatabase.getInstance();
