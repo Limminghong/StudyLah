@@ -33,13 +33,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class editSession extends AppCompatActivity {
     private AutoCompleteTextView mAutoModule;
     private EditText mEditTextTiming;
     private EditText mEditTextDate;
     private EditText mEditTextLocation;
+
+    private int participantCount;
+    private Map<String, Boolean> participants = new HashMap<>();
 
     private ArrayList<String> moduleCodes;
     private Hashtable moduleChecker;
@@ -87,6 +92,8 @@ public class editSession extends AppCompatActivity {
                 mEditTextTiming.setText(session.getTiming());
                 mEditTextDate.setText(session.getdate());
                 mEditTextLocation.setText(session.getLocation());
+                participantCount = session.getParticipantCount();
+                participants = session.getParticipants();
             }
 
             @Override
@@ -115,7 +122,7 @@ public class editSession extends AppCompatActivity {
                     Toast.makeText(editSession.this, "Please Enter Location", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    // updateSession();
+                    updateSession();
                     backToMainActivity();
                 }
             }
@@ -184,6 +191,30 @@ public class editSession extends AppCompatActivity {
         backToHost();
         return true;
     }*/
+
+    // Function to update session
+    private void updateSession() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String username = user.getDisplayName().toString();
+        String module = mAutoModule.getText().toString().trim();
+        String timing = mEditTextTiming.getText().toString().trim();
+        String date = mEditTextDate.getText().toString().trim();
+        String location = mEditTextLocation.getText().toString().trim();
+        // Write message to database
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("sessions");
+        // Create a new session
+        Session session = new Session();
+        session.setId(key);
+        session.setHost(username);
+        session.setModule(module);
+        session.setTiming(timing);
+        session.setDate(date);
+        session.setLocation(location);
+        session.setParticipantCount(participantCount);
+        session.setParticipants(participants);
+        mDatabase.child(key).setValue(session);
+    }
 
     private void backToMainActivity() {
         Intent intent = new Intent(editSession.this, MainActivity.class);
