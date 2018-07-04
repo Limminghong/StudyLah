@@ -1,13 +1,234 @@
 package com.example.user.studylah;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Hashtable;
 
 public class editSession extends AppCompatActivity {
+    private AutoCompleteTextView mAutoModule;
+    private EditText mEditTextTiming;
+    private EditText mEditTextDate;
+    private EditText mEditTextLocation;
+
+    private ArrayList<String> moduleCodes;
+    private Hashtable moduleChecker;
+
+    private Button mButtonEdit;
+    private Button mButtonDelete;
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener;
+
+    // Get database
+    String key;
+    private FirebaseDatabase database;
+    private DatabaseReference sessionRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_session);
+
+        // Initialise database path
+        key = getIntent().getStringExtra("KEY_EDIT");
+        database = FirebaseDatabase.getInstance();
+        sessionRef = database.getReference("/sessions/" + key);
+
+        // Initialise widgets
+        mAutoModule = (AutoCompleteTextView)findViewById(R.id.editAutoModule);
+        mEditTextTiming = (EditText)findViewById(R.id.editEditTextTiming);
+        mEditTextDate = (EditText) findViewById(R.id.editEditTextDate);
+        mEditTextLocation = (EditText)findViewById(R.id.editEditTextLocation);
+
+        mButtonEdit = (Button)findViewById(R.id.editButtonEdit);
+        mButtonDelete = (Button)findViewById(R.id.editButtonDelete);
+
+        moduleCodes = new ArrayList<String>();
+        moduleChecker = new Hashtable();
+        loadAutoData();
+
+        // Copy previous data
+        sessionRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Session session = dataSnapshot.getValue(Session.class);
+                mAutoModule.setText(session.getModule());
+                mEditTextTiming.setText(session.getTiming());
+                mEditTextDate.setText(session.getdate());
+                mEditTextLocation.setText(session.getLocation());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        */
+
+        // Create button
+        mButtonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkModuleValidity(mAutoModule.getText().toString().trim())) {
+                    Toast.makeText(editSession.this, "Please Enter A Valid Module", Toast.LENGTH_SHORT).show();
+                }
+                else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim())) {
+                    Toast.makeText(editSession.this, "Please Enter Timing", Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(mEditTextDate.getText().toString().trim())) {
+                    Toast.makeText(editSession.this, "Please Enter Date", Toast.LENGTH_SHORT).show();
+                }
+                else if(TextUtils.isEmpty(mEditTextLocation.getText().toString().trim())) {
+                    Toast.makeText(editSession.this, "Please Enter Location", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // updateSession();
+                    backToMainActivity();
+                }
+            }
+        });
+
+        mEditTextTiming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int minute = cal.get(Calendar.MINUTE);
+                boolean is24Hour = true;
+
+                TimePickerDialog dialog = new TimePickerDialog(
+                        editSession.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mTimeSetListener,
+                        hour, minute, is24Hour
+                );
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String time = hourOfDay + ":" + minute;
+                mEditTextTiming.setText(time);
+            }
+        };
+
+        mEditTextDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        editSession.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year, month, day
+                );
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                String date = dayOfMonth + "/" + month + "/" + year;
+                mEditTextDate.setText(date);
+            }
+        };
+    }
+
+    /*@Override
+    public boolean onSupportNavigateUp() {
+        backToHost();
+        return true;
+    }*/
+
+    private void backToMainActivity() {
+        Intent intent = new Intent(editSession.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = this.getAssets().open("moduleList.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+    private void loadAutoData() {
+        try {
+            JSONArray moduleList = new JSONArray(loadJSONFromAsset());
+            for(int i = 0; i < moduleList.length(); i++) {
+                JSONObject modules = moduleList.getJSONObject(i);
+                String module = modules.getString("ModuleCode");
+                moduleCodes.add(module);
+                moduleChecker.put(module, new Integer(1));
+            }
+            mAutoModule.setAdapter(new ArrayAdapter<String>(editSession.this, android.R.layout.simple_spinner_dropdown_item, moduleCodes));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean checkModuleValidity(String mod) {
+        if (!moduleChecker.containsKey(mod)) {
+            return true;
+        }
+        else if (TextUtils.isEmpty(mod)) {
+            return true;
+        }
+        else return false;
     }
 }

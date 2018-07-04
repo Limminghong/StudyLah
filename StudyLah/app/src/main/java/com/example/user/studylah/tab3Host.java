@@ -122,11 +122,14 @@ public class tab3Host extends Fragment {
                 alertDig.setMessage("Do you want to edit this session?");
                 alertDig.setCancelable(false);
 
+                final int pos = i;
                 alertDig.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Goes to the edit activity
+                        String key = sessionId.get(pos);
                         Intent intent = new Intent(getActivity(), editSession.class);
+                        intent.putExtra("KEY_EDIT", key);
                         startActivity(intent);
                     }
                 });
