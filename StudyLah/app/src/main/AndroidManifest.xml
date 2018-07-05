@@ -13,23 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:label">
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".createSession" />
         <activity android:name=".CreateProfile" />
+        <activity android:name=".ViewJoinedSession" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ViewJoinedSession"></activity>
+        <activity android:name=".editSession"></activity>
     </application>
 
 </manifest>

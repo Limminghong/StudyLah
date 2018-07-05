@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/signup_background"
+    tools:context=".createSession"
+    tools:layout_editor_absoluteY="25dp">
+
+    <TextView
+        android:id="@+id/editTextViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="71dp"
+        android:fontFamily="@font/poiret_one"
+        android:text="Date:"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextViewLocation"
+        app:layout_constraintStart_toStartOf="@+id/editEditTextDate"
+        app:layout_constraintTop_toBottomOf="@+id/editEditTextTiming" />
+
+    <EditText
+        android:id="@+id/editEditTextDate"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:fontFamily="@font/poiret_one"
+        android:hint="Select Date"
+        android:inputType="date"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toTopOf="@+id/editTextViewLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextViewDate" />
+
+    <TextView
+        android:id="@+id/editTextViewLocation"
+        android:layout_width="84dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:fontFamily="@font/poiret_one"
+        android:text="Location:"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editEditTextLocation"
+        app:layout_constraintStart_toStartOf="@+id/editEditTextLocation"
+        app:layout_constraintTop_toBottomOf="@+id/editTextViewDate" />
+
+    <EditText
+        android:id="@+id/editEditTextLocation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="336dp"
+        android:ems="10"
+        android:fontFamily="@font/poiret_one"
+        android:hint="Enter Location"
+        android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toTopOf="@+id/editButtonEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/editButtonEdit"
+        android:layout_width="127dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="68dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/box"
+        android:fontFamily="@font/poiret_one"
+        android:text="Edit"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editEditTextLocation" />
+
+    <TextView
+        android:id="@+id/editTextViewModule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poiret_one"
+        android:text="Modules: "
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editAutoModule"
+        app:layout_constraintStart_toStartOf="@+id/editAutoModule"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editAutoModule"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="26dp"
+        android:ems="10"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toTopOf="@+id/editTextViewTiming"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextViewModule" />
+
+    <TextView
+        android:id="@+id/editTextViewTiming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poiret_one"
+        android:text="Timing:"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editEditTextTiming"
+        app:layout_constraintStart_toStartOf="@+id/editEditTextTiming"
+        app:layout_constraintTop_toBottomOf="@+id/editAutoModule" />
+
+    <EditText
+        android:id="@+id/editEditTextTiming"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="26dp"
+        android:ems="10"
+        android:fontFamily="@font/poiret_one"
+        android:hint="Select Time"
+        android:inputType="time"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextViewDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextViewTiming" />
+
+    <Button
+        android:id="@+id/editButtonDelete"
+        android:layout_width="127dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="68dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/box"
+        android:fontFamily="@font/poiret_one"
+        android:text="Delete"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editEditTextLocation"
+        app:layout_constraintVertical_bias="1.0" />
+</android.support.constraint.ConstraintLayout>

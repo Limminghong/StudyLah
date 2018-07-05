@@ -70,6 +70,7 @@ public class tab2Join extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //clear list to prevent bug
                 list2.clear();
+                sessionId.clear();
                 //lists out all the Sessions that are available
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
@@ -99,7 +100,7 @@ public class tab2Join extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 String key = sessionId.get(i);
                 Intent intent = new Intent(getActivity(), ViewJoinedSession.class);
-                intent.putExtra("KEY", key);
+                intent.putExtra("KEY_LEAVE", key);
                 startActivity(intent);
             }
         });
