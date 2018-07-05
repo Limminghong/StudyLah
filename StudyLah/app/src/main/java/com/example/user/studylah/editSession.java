@@ -86,7 +86,7 @@ public class editSession extends AppCompatActivity {
         loadAutoData();
 
         // Copy previous data
-        sessionRef.addValueEventListener(new ValueEventListener() {
+        sessionRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Session session = dataSnapshot.getValue(Session.class);
@@ -198,17 +198,7 @@ public class editSession extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Delete session
-                        sessionRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                dataSnapshot.getRef().removeValue();
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+                        sessionRef.removeValue();
                         backToMainActivity();
                     }
                 });
