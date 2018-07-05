@@ -1,8 +1,10 @@
 package com.example.user.studylah;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
@@ -19,6 +21,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -98,10 +102,49 @@ public class tab2Join extends Fragment {
         joinList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                AlertDialog.Builder alertDig = new AlertDialog.Builder(getActivity());
+                alertDig.setMessage("Do you want to leave this session?");
+                alertDig.setCancelable(false);
+
                 String key = sessionId.get(i);
-                Intent intent = new Intent(getActivity(), ViewJoinedSession.class);
-                intent.putExtra("KEY_LEAVE", key);
-                startActivity(intent);
+                final DatabaseReference sessionRef = database.getReference("/sessions/" + key);
+
+                alertDig.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Toast.makeText(getActivity(), "Cool it works", Toast.LENGTH_SHORT).show();
+                        // Add student
+                        removeParticipant(sessionRef);
+                    }
+
+                    public void removeParticipant(DatabaseReference sRef) {
+                        sRef.runTransaction(new Transaction.Handler() {
+                            @Override
+                            public Transaction.Result doTransaction(MutableData mutableData) {
+                                Session s = mutableData.getValue(Session.class);
+                                if(!s.participants.containsKey(name)) s.participantCount -= 1;
+                                s.participants.remove(name);
+
+                                mutableData.setValue(s);
+                                return Transaction.success(mutableData);
+                            }
+
+                            @Override
+                            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                            }
+                        });
+                    }
+                });
+
+                alertDig.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                alertDig.create().show();
             }
         });
 
