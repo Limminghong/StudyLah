@@ -102,10 +102,10 @@ public class tab2Join extends Fragment {
         joinList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+
                 AlertDialog.Builder alertDig = new AlertDialog.Builder(getActivity());
                 alertDig.setMessage("Do you want to leave this session?");
                 alertDig.setCancelable(false);
-
                 String key = sessionId.get(i);
                 final DatabaseReference sessionRef = database.getReference("/sessions/" + key);
 
@@ -122,7 +122,7 @@ public class tab2Join extends Fragment {
                             @Override
                             public Transaction.Result doTransaction(MutableData mutableData) {
                                 Session s = mutableData.getValue(Session.class);
-                                if(!s.participants.containsKey(name)) s.participantCount -= 1;
+                                if(s.participants.containsKey(name)) s.participantCount -= 1;
                                 s.participants.remove(name);
 
                                 mutableData.setValue(s);

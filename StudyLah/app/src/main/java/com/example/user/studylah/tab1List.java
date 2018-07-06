@@ -54,7 +54,7 @@ public class tab1List extends Fragment {
 
     // Get current username
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    String currentUsername = currentUser.getDisplayName().toString();
+    String currentUsername;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -123,6 +123,7 @@ public class tab1List extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                currentUsername = currentUser.getDisplayName();
                 AlertDialog.Builder alertDig = new AlertDialog.Builder(getActivity());
                 alertDig.setMessage("Do you want to join this session?");
                 alertDig.setCancelable(false);
