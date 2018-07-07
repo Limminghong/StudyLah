@@ -22,11 +22,9 @@
 
     <EditText
         android:id="@+id/editTextDate"
-        android:layout_width="0dp"
+        android:layout_width="332dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginStart="26dp"
+        android:layout_marginBottom="22dp"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Select Date"
@@ -52,11 +50,9 @@
 
     <EditText
         android:id="@+id/editTextLocation"
-        android:layout_width="0dp"
+        android:layout_width="334dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="71dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginBottom="19dp"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Enter Location"
@@ -69,11 +65,9 @@
 
     <Button
         android:id="@+id/buttonCreate"
-        android:layout_width="0dp"
+        android:layout_width="360dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="68dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginBottom="101dp"
         android:background="@drawable/box"
         android:fontFamily="@font/poiret_one"
         android:text="Create"
@@ -89,7 +83,7 @@
         android:id="@+id/textViewModule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="37dp"
         android:fontFamily="@font/poiret_one"
         android:text="Modules: "
         android:textColor="@color/cardview_light_background"
@@ -100,11 +94,9 @@
 
     <AutoCompleteTextView
         android:id="@+id/autoModule"
-        android:layout_width="0dp"
+        android:layout_width="332dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginStart="26dp"
+        android:layout_marginBottom="17dp"
         android:ems="10"
         android:textColor="@color/cardview_light_background"
         app:layout_constraintBottom_toTopOf="@+id/textViewTiming"
@@ -126,11 +118,9 @@
 
     <EditText
         android:id="@+id/editTextTiming"
-        android:layout_width="0dp"
+        android:layout_width="332dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginStart="26dp"
+        android:layout_marginBottom="17dp"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Select Time"

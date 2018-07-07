@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_back"
     tools:context=".LoginActivity"
-    tools:layout_editor_absoluteY="25dp"
-    android:background="@drawable/login_background">
+    tools:layout_editor_absoluteY="25dp">
 
     <EditText
         android:id="@+id/editTextEmailLogin"
@@ -14,7 +14,7 @@
         android:layout_height="51dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="195dp"
         android:background="@drawable/box"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
@@ -48,10 +48,9 @@
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="294dp"
-        android:layout_height="73dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="69dp"
+        android:layout_above="@+id/textViewSignup"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="102dp"
         android:background="@drawable/login_button"
         tools:layout_editor_absoluteX="12dp"
         tools:layout_editor_absoluteY="436dp" />
@@ -62,7 +61,7 @@
         android:layout_height="74dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="112dp"
         app:srcCompat="@drawable/study_lah" />
 
     <ImageView
@@ -71,7 +70,7 @@
         android:layout_height="27dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="221dp"
+        android:layout_marginBottom="220dp"
         app:srcCompat="@drawable/forgot_password" />
 
     <TextView
@@ -80,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="71dp"
+        android:layout_marginBottom="94dp"
         android:fontFamily="@font/poiret_one"
         android:text="Not a member yet? Sign up now!"
         android:textColor="@color/cardview_light_background"

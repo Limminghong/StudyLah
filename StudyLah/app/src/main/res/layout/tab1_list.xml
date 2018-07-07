@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signup_background"
+    android:background="@color/cardview_light_background"
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
@@ -15,7 +15,7 @@
         android:layout_height="66dp"
         android:fontFamily="@font/poiret_one"
         android:textAlignment="center"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintEnd_toEndOf="parent"
