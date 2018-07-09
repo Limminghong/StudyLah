@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Session {
-    String id;
-    String host;
-    String module;
-    String timing;
-    String date;
-    String location;
+    private String id;
+    private String host;
+    private String module;
+    private String timing;
+    private String date;
+    private String location;
 
     int participantCount = 0;
     Map<String, Boolean> participants = new HashMap<>();

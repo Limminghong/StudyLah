@@ -25,12 +25,14 @@
         <activity android:name=".createSession" />
         <activity android:name=".CreateProfile" />
         <activity android:name=".ViewJoinedSession" />
+        <activity android:name=".editSession" />
+        <activity android:name=".UserProfile"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".editSession"></activity>
+
     </application>
 
 </manifest>

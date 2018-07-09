@@ -18,6 +18,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     private EditText mEditTextUsername;
@@ -47,8 +49,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(animAlpha);
-                String email = mEditTextEmail.getText().toString().trim();
-                String password = mEditTextPw.getText().toString().trim();
+                final String email = mEditTextEmail.getText().toString().trim();
+                final String password = mEditTextPw.getText().toString().trim();
                 final String username = mEditTextUsername.getText().toString();
                 // Check if email is empty
                 if(TextUtils.isEmpty(email)) {
@@ -76,7 +78,7 @@ public class SignupActivity extends AppCompatActivity {
                                         Toast.makeText(SignupActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                                     } else {
                                         // User sign up successful
-                                        signUpSuccess(username);
+                                        signUpSuccess(username, email);
                                     }
                                 }
                             });
@@ -85,15 +87,24 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void signUpSuccess(String username) {
+    private void signUpSuccess(String username, String email) {
         // Save username
         FirebaseUser user = auth.getInstance().getCurrentUser();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
         user.updateProfile(profileUpdates);
+        // Create user profile and add to database
+        String uid = user.getUid();
+        createProfile(uid, username, email);
         // Signup successful, got to main activity
         Intent intent = new Intent(SignupActivity.this, MainActivity.class);
         startActivity(intent);
         // End the activity
         finish();
+    }
+
+    private void createProfile(String uid, String uName, String email) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        User user = new User(uName, "default", email, "Default bio");
+        mDatabase.child(uid).setValue(user);
     }
 }
