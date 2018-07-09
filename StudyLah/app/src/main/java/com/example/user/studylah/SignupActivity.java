@@ -104,7 +104,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void createProfile(String uid, String uName, String email) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        User user = new User(uName, "default", email, "Default bio");
+        User user = new User(uName, "default", "default", email, "Default bio");
         mDatabase.child(uid).setValue(user);
     }
 }

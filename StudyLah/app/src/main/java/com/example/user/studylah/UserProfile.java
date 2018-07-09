@@ -1,6 +1,11 @@
 package com.example.user.studylah;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +25,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -27,11 +39,19 @@ public class UserProfile extends AppCompatActivity {
     private FirebaseUser mCurrentUser;
 
     // Android Layout
-    CircleImageView mDisplayImage;
-    Button mChangeBio;
-    TextView mDisplayName;
-    TextView mEmail;
-    TextView mBio;
+    // Image
+    private CircleImageView mDisplayImage;
+    // Buttons
+    private Button mChangeBio;
+    private Button mChangeImage;
+    // TextViews
+    private TextView mDisplayName;
+    private TextView mEmail;
+    private TextView mBio;
+    // Constants
+    private static final int GALLERY_PICK = 1;
+    // Storage Reference
+    private StorageReference mImageStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +64,13 @@ public class UserProfile extends AppCompatActivity {
         mEmail = (TextView)findViewById(R.id.userEmail);
         mBio = (TextView)findViewById(R.id.bioText);
         mChangeBio = (Button)findViewById(R.id.changeBio);
+        mChangeImage = (Button)findViewById(R.id.changeImage);
 
         // Initialise variables
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(current_uid);
+        mImageStorage = FirebaseStorage.getInstance().getReference();
 
         // Add Value Event Listener
         mUserDatabase.addValueEventListener(new ValueEventListener() {
@@ -110,5 +132,54 @@ public class UserProfile extends AppCompatActivity {
                 }
             }
         });
+
+        // Change Display Picture
+        mChangeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent galleryIntent = new Intent();
+                galleryIntent.setType("image/*");
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+                startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
+
+            Uri imageUri = data.getData();
+
+            // start cropping activity for pre-acquired image saved on the device
+            CropImage.activity(imageUri).setAspectRatio(1,1).start(this);
+
+        }
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                String current_user_id = mCurrentUser.getUid();
+                StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".jpg");
+                filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if(task.isSuccessful()) {
+
+                        }
+                        else {
+                            Toast.makeText(UserProfile.this, "Upload Failed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 }

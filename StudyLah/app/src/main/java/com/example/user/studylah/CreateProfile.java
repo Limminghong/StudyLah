@@ -19,8 +19,6 @@ public class CreateProfile extends AppCompatActivity {
     private EditText mEditTextUsername;
     private Button mButtonCreateProfile;
 
-    private FirebaseAuth auth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +41,7 @@ public class CreateProfile extends AppCompatActivity {
                     Toast.makeText(CreateProfile.this, "Required Field Empty", Toast.LENGTH_SHORT).show();
                 } else {
                     // Update profile
-                    FirebaseUser user = auth.getInstance().getCurrentUser();
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
                     user.updateProfile(profileUpdates);
                     // Go to Main
