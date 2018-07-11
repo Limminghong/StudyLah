@@ -3,6 +3,7 @@ package com.example.user.studylah;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -33,7 +34,15 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.BitSet;
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class UserProfile extends AppCompatActivity {
     // Database
@@ -95,7 +104,9 @@ public class UserProfile extends AppCompatActivity {
                 mBio.setText(bio);
 
                 // Load Image
-                Picasso.get().load(image).into(mDisplayImage);
+                if(!imageThumb.equals("default")) {
+                    Picasso.get().load(imageThumb).into(mDisplayImage);
+                }
             }
 
             @Override
@@ -163,7 +174,10 @@ public class UserProfile extends AppCompatActivity {
             Uri imageUri = data.getData();
 
             // start cropping activity for pre-acquired image saved on the device
-            CropImage.activity(imageUri).setAspectRatio(1,1).start(this);
+            CropImage.activity(imageUri)
+                    .setAspectRatio(1,1)
+                    .setMinCropWindowSize(500,500)
+                    .start(this);
 
         }
 
@@ -178,8 +192,23 @@ public class UserProfile extends AppCompatActivity {
                 mProgessDialog.show();
 
                 Uri resultUri = result.getUri();
+                File thumb_file = new File(resultUri.getPath());
+
                 final String current_user_id = mCurrentUser.getUid();
+                Bitmap thumb_bitmap = new Compressor(this)
+                        .setMaxWidth(200)
+                        .setMaxHeight(200)
+                        .setQuality(75)
+                        .compressToBitmap(thumb_file);
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                final byte[] thumb_byte = baos.toByteArray();
+
+                // Create Directory
                 final StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id + ".jpg");
+                final StorageReference thumb_filepath = mImageStorage.child("profile_images").child("thumbs").child(current_user_id + ".jpg");
+
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -188,15 +217,39 @@ public class UserProfile extends AppCompatActivity {
                             mImageStorage.child("profile_images").child(current_user_id + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    String downloadUrl = uri.toString();
-                                    mUserDatabase.child("imageLink").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    final String downloadUrl = uri.toString();
+
+                                    UploadTask uploadTask = thumb_filepath.putBytes(thumb_byte);
+                                    uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()) {
-                                                mProgessDialog.dismiss();
+                                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+                                            if(thumb_task.isSuccessful()) {
+                                                mImageStorage.child("profile_images").child("thumbs").child(current_user_id + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        final String thumb_downloadUrl = uri.toString();
+
+                                                        Map update_hashMap = new HashMap<>();
+                                                        update_hashMap.put("imageLink", downloadUrl);
+                                                        update_hashMap.put("imageThumb", thumb_downloadUrl);
+
+                                                        mUserDatabase.updateChildren(update_hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> image_task) {
+                                                                if(image_task.isSuccessful()) {
+                                                                    mProgessDialog.dismiss();
+                                                                }
+                                                                else {
+                                                                    Toast.makeText(UserProfile.this, "Upload Failed During Process Dialog.", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+
+                                                    }
+                                                });
                                             }
                                             else {
-                                                Toast.makeText(UserProfile.this, "Upload Failed During Process Dialog.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(UserProfile.this, "Upload Thumbnail Failed During Process Dialog.", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
