@@ -127,7 +127,7 @@ public class UserProfile extends AppCompatActivity {
 
                     final EditText edt = (EditText) dialogView.findViewById(R.id.editBio);
 
-                    dialogBuilder.setMessage("Enter Biography below (Maximum 140 characters");
+                    dialogBuilder.setMessage("Enter Biography below (Maximum 140 characters)");
                     dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             // Edit the users bio in firebase

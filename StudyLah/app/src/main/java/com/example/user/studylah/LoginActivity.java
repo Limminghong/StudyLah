@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +22,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import io.paperdb.Paper;
+
 public class LoginActivity extends AppCompatActivity {
     private TextView mTextViewSignup;
     private Button mButtonLogin;
     private EditText mEditTextEmail;
     private EditText mEditTextPw;
+    private CheckBox mRemember;
+
     private FirebaseAuth auth;
 
     @Override
@@ -41,6 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         mEditTextEmail = findViewById(R.id.editTextEmailLogin);
         mEditTextPw = findViewById(R.id.editTextPasswordLogin);
         mTextViewSignup = findViewById(R.id.textViewSignup);
+        mRemember = findViewById(R.id.checkBoxRmbMe);
+
+        // Initialise Paper
+        Paper.init(this);
 
         //button animation
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
@@ -53,13 +62,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Check if email and password has been remembered
+        String paperEmail = Paper.book().read("Email");
+        String paperPwd = Paper.book().read("Password");
+        if(paperEmail != null && paperPwd != null) {
+            mEditTextEmail.setText(paperEmail);
+            mEditTextPw.setText(paperPwd);
+        }
+
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(animAlpha);
 
-                String email = mEditTextEmail.getText().toString().trim();
-                String password = mEditTextPw.getText().toString().trim();
+                final String email = mEditTextEmail.getText().toString().trim();
+                final String password = mEditTextPw.getText().toString().trim();
                 // Check if email is empty
                 if(TextUtils.isEmpty(email)) {
                     Toast.makeText(LoginActivity.this, "Enter Email Address", Toast.LENGTH_SHORT).show();
@@ -82,6 +99,11 @@ public class LoginActivity extends AppCompatActivity {
                                         // Error occurred
                                         Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                                     } else {
+                                        if(mRemember.isChecked()){
+                                            Paper.book().write("Email", email);
+                                            Paper.book().write("Password", password);
+                                        }
+
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
                                         finish();
