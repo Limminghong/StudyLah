@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEditTextEmail;
     private EditText mEditTextPw;
     private CheckBox mRemember;
+    private ImageView mImageForgotPassword;
 
     private FirebaseAuth auth;
 
@@ -47,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         mEditTextPw = findViewById(R.id.editTextPasswordLogin);
         mTextViewSignup = findViewById(R.id.textViewSignup);
         mRemember = findViewById(R.id.checkBoxRmbMe);
+        mImageForgotPassword = findViewById(R.id.forgot_pass);
 
         // Initialise Paper
         Paper.init(this);
@@ -111,6 +114,14 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                 }
+            }
+        });
+
+        mImageForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgetPassword.class);
+                startActivity(intent);
             }
         });
     }
