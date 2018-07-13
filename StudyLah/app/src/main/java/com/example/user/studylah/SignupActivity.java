@@ -54,7 +54,7 @@ public class SignupActivity extends AppCompatActivity {
         // Populate nameChecker
         DatabaseReference nameRef = FirebaseDatabase.getInstance().getReference("username");
 
-        nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        nameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {

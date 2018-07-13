@@ -50,6 +50,8 @@ import java.util.Map;
 public class createSession extends AppCompatActivity {
     private static final String TAG = "createSession";
 
+    private FirebaseUser currentUser;
+
     private AutoCompleteTextView mAutoModule;
     private EditText mEditTextTiming;
     private EditText mEditTextDate;
@@ -79,6 +81,9 @@ public class createSession extends AppCompatActivity {
         moduleCodes = new ArrayList<String>();
         moduleChecker = new Hashtable();
         loadAutoData();
+
+        // Load current user
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -189,7 +194,18 @@ public class createSession extends AppCompatActivity {
         session.setLocation(location);
         String sessionId = mDatabase.push().getKey();
         session.setId(sessionId);
+        addSessionIntoUser(sessionId);
         mDatabase.child(sessionId).setValue(session);
+    }
+
+    private void addSessionIntoUser(String sessionId) {
+        String current_uid = currentUser.getUid();
+        DatabaseReference userSessionDatabaseRef = FirebaseDatabase.getInstance().getReference().child("users").child(current_uid).child("hostedSessions");
+
+        Map hostingSession = new HashMap();
+        hostingSession.put(sessionId, true);
+
+        userSessionDatabaseRef.updateChildren(hostingSession);
     }
 
     private void backToMainActivity() {

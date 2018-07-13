@@ -62,6 +62,10 @@ public class editSession extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference sessionRef;
 
+    // Get user session database
+    private FirebaseUser currentUser;
+    private DatabaseReference userSessionRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,9 @@ public class editSession extends AppCompatActivity {
         key = getIntent().getStringExtra("KEY_EDIT");
         database = FirebaseDatabase.getInstance();
         sessionRef = database.getReference("/sessions/" + key);
+
+        // Initialise current user
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Initialise widgets
         mAutoModule = (AutoCompleteTextView)findViewById(R.id.editAutoModule);
@@ -197,6 +204,11 @@ public class editSession extends AppCompatActivity {
                 alertDig.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Delete session from user
+                        String current_uid = currentUser.getUid();
+                        userSessionRef = database.getInstance().getReference().child("users").child(current_uid).child("hostedSessions").child(key);
+                        userSessionRef.removeValue();
+
                         // Delete session
                         sessionRef.removeValue();
                         backToMainActivity();
