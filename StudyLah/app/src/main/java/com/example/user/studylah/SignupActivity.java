@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,8 +19,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private EditText mEditTextUsername;
@@ -27,6 +34,8 @@ public class SignupActivity extends AppCompatActivity {
     private EditText mEditTextPw;
     private Button mBtnSignup;
     private FirebaseAuth auth;
+
+    private Map<String, Integer> nameChecker = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,25 @@ public class SignupActivity extends AppCompatActivity {
 
         // Firebase Auth Instance
         auth = FirebaseAuth.getInstance();
+
+        // Populate nameChecker
+        DatabaseReference nameRef = FirebaseDatabase.getInstance().getReference("username");
+
+        nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String username = ds.getKey();
+                    Log.i("name", username);
+                    nameChecker.put(username, 1);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //button animation
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
@@ -66,7 +94,9 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this, "Required Field Empty", Toast.LENGTH_SHORT).show();
                 }
 
-                // Set your own additional constraints
+                else if(nameChecker.containsKey(username)) {
+                    Toast.makeText(SignupActivity.this, "Username Has Been Used", Toast.LENGTH_SHORT).show();
+                }
 
                 else {
                     // Create a new user
@@ -95,6 +125,7 @@ public class SignupActivity extends AppCompatActivity {
         // Create user profile and add to database
         String uid = user.getUid();
         createProfile(uid, username, email);
+        saveUsername(username);
         // Signup successful, got to main activity
         Intent intent = new Intent(SignupActivity.this, MainActivity.class);
         startActivity(intent);
@@ -106,5 +137,12 @@ public class SignupActivity extends AppCompatActivity {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
         User user = new User(uName, "default", "default", email, "Default bio");
         mDatabase.child(uid).setValue(user);
+    }
+
+    private void saveUsername(String username) {
+        DatabaseReference usernameDatabase = FirebaseDatabase.getInstance().getReference("username");
+        Map names = new HashMap<>();
+        names.put(username, true);
+        usernameDatabase.updateChildren(names);
     }
 }
