@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_settings:
                 return true;
+            case R.id.action_changePassword:
+                userChangePassword();
+                return true;
             case R.id.profile:
                 userProfile();
                 return true;
@@ -177,13 +180,17 @@ public class MainActivity extends AppCompatActivity {
     private void userProfile() {
         Intent intent = new Intent(MainActivity.this, UserProfile.class);
         startActivity(intent);
-        finish();
     }
 
     // Go to user profile feedback
     private void userFeedback() {
         Intent intent = new Intent(MainActivity.this, UserFeedback.class);
         startActivity(intent);
-        finish();
+    }
+
+    // Go to change password
+    private void userChangePassword() {
+        Intent intent = new Intent(MainActivity.this, ChangePassword.class);
+        startActivity(intent);
     }
 }

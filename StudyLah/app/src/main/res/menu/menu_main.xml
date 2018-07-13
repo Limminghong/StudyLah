@@ -10,22 +10,29 @@
         android:title="Profile"
         app:showAsAction="never" />
     <item
-        android:id="@+id/feedback"
-        android:orderInCategory="1"
-        android:icon="@drawable/ic_rate"
-        android:iconTint="@color/white"
-        android:title="Feedback"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_settings"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         android:icon="@drawable/ic_settings_black_24dp"
         android:iconTint="@color/white"
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_changePassword"
+        android:orderInCategory="3"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:iconTint="@color/white"
+        android:title="Change Password"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/feedback"
+        android:orderInCategory="4"
+        android:icon="@drawable/ic_rate"
+        android:iconTint="@color/white"
+        android:title="Feedback"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/logout"
-        android:orderInCategory="2"
+        android:orderInCategory="5"
         android:icon="@drawable/ic_logout"
         android:iconTint="@color/white"
         android:title="Logout"
