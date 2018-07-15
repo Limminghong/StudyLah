@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SignupActivity"
     tools:layout_editor_absoluteY="25dp"
-    android:background="@drawable/signup_background">
+    android:background="@drawable/book_login">
 
     <EditText
         android:id="@+id/editTextEmailSignup"
@@ -14,15 +14,15 @@
         android:layout_height="69dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="208dp"
-        android:background="@drawable/box"
+        android:layout_marginTop="236dp"
+        android:background="@drawable/box_final"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textAlignment="center"
-        android:textColor="@color/cardview_light_background"
-        android:textColorHint="@color/cardview_light_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="259dp" />
@@ -33,15 +33,15 @@
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="205dp"
-        android:background="@drawable/box"
+        android:layout_marginBottom="272dp"
+        android:background="@drawable/box_final"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Password"
         android:inputType="textPassword"
         android:textAlignment="center"
-        android:textColor="@color/cardview_light_background"
-        android:textColorHint="@color/cardview_light_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="352dp" />
@@ -52,23 +52,14 @@
         android:layout_height="51dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/sign_up_big"
+        android:layout_marginBottom="67dp"
+        android:background="@drawable/box_final"
         android:fontFamily="@font/poiret_one"
         android:text="Sign Up"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
         tools:layout_editor_absoluteX="12dp"
         tools:layout_editor_absoluteY="436dp" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="203dp"
-        android:layout_height="86dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="107dp"
-        android:cropToPadding="false"
-        app:srcCompat="@drawable/study_lah" />
 
     <EditText
         android:id="@+id/editTextUsername"
@@ -76,16 +67,70 @@
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="123dp"
-        android:background="@drawable/box"
+        android:layout_marginBottom="190dp"
+        android:background="@drawable/box_login_final"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Username"
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColor="@color/cardview_light_background"
-        android:textColorHint="@color/cardview_light_background"
+        android:textColorHint="@color/white"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="352dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="290dp"
+        android:layout_height="110dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="113dp"
+        app:srcCompat="@drawable/studylah_final" />
+
+    <ImageView
+        android:id="@+id/ball1"
+        android:layout_width="17dp"
+        android:layout_height="26dp"
+        android:layout_below="@+id/ball4"
+        android:layout_toStartOf="@+id/editTextEmailSignup"
+        app:srcCompat="@drawable/decoration_ball" />
+
+    <ImageView
+        android:id="@+id/ball4"
+        android:layout_width="30dp"
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_marginStart="13dp"
+        app:srcCompat="@drawable/decoration_ball" />
+
+    <ImageView
+        android:id="@+id/ball3"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="68dp"
+        app:srcCompat="@drawable/decoration_ball" />
+
+    <ImageView
+        android:id="@+id/ball2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="34dp"
+        android:layout_toEndOf="@+id/ball3"
+        app:srcCompat="@drawable/decoration_ball" />
+
+    <ImageView
+        android:id="@+id/ball"
+        android:layout_width="73dp"
+        android:layout_height="68dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/ball2"
+        app:srcCompat="@drawable/decoration_ball" />
 </RelativeLayout>

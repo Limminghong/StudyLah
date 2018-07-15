@@ -4,98 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_back"
+    android:background="@drawable/book_login"
     tools:context=".LoginActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <EditText
         android:id="@+id/editTextEmailLogin"
-        android:layout_width="287dp"
-        android:layout_height="51dp"
+        android:layout_width="318dp"
+        android:layout_height="59dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="195dp"
-        android:background="@drawable/box"
+        android:background="@drawable/box_final"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:singleLine="false"
         android:textAlignment="center"
-        android:textColor="@color/cardview_light_background"
-        android:textColorHint="@color/cardview_light_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:textSize="20sp"
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="259dp" />
 
     <EditText
         android:id="@+id/editTextPasswordLogin"
-        android:layout_width="287dp"
-        android:layout_height="51dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/box"
+        android:layout_width="314dp"
+        android:layout_height="59dp"
+        android:layout_above="@+id/checkBoxRmbMe"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/box_final"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Password"
         android:inputType="textPassword"
         android:textAlignment="center"
-        android:textColor="@color/cardview_light_background"
-        android:textColorHint="@color/cardview_light_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:textSize="20sp"
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="352dp" />
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="294dp"
-        android:layout_height="69dp"
+        android:layout_width="383dp"
+        android:layout_height="90dp"
         android:layout_above="@+id/textViewSignup"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/login_button"
+        android:background="@drawable/box_login_final3"
         tools:layout_editor_absoluteX="12dp"
         tools:layout_editor_absoluteY="436dp" />
 
-    <ImageView
-        android:id="@+id/studylah"
-        android:layout_width="215dp"
-        android:layout_height="74dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="112dp"
-        app:srcCompat="@drawable/study_lah" />
-
-    <ImageView
-        android:id="@+id/forgot_pass"
-        android:layout_width="177dp"
-        android:layout_height="27dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="191dp"
-        app:srcCompat="@drawable/forgot_password" />
-
     <TextView
         android:id="@+id/textViewSignup"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="271dp"
+        android:layout_height="51dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="94dp"
+        android:layout_marginBottom="76dp"
         android:fontFamily="@font/poiret_one"
         android:text="Not a member yet? Sign up now!"
-        android:textColor="@color/cardview_light_background"
-        android:textSize="16sp"
+        android:textColor="#f9f6f6"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="normal" />
 
     <CheckBox
         android:id="@+id/checkBoxRmbMe"
-        android:layout_width="175dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/editTextEmailLogin"
-        android:layout_below="@+id/editTextPasswordLogin"
-        android:textColor="@color/cardview_light_background"
-        android:buttonTint="@color/cardview_light_background"
-        android:text="Remember Me" />
+        android:layout_marginBottom="302dp"
+        android:buttonTint="@color/colorBlue"
+        android:shadowColor="@color/black"
+        android:text="Remember Me"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/colorBlue"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/studylah"
+        android:layout_width="345dp"
+        android:layout_height="104dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp"
+        app:srcCompat="@drawable/studylah_final" />
+
+    <ImageView
+        android:id="@+id/forgot_pass"
+        android:layout_width="208dp"
+        android:layout_height="44dp"
+        android:layout_below="@+id/checkBoxRmbMe"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-302dp"
+        app:srcCompat="@drawable/forgot_final" />
 
 
 </RelativeLayout>
