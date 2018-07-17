@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -51,6 +53,7 @@ public class editSession extends AppCompatActivity {
     private ArrayList<String> moduleCodes;
     private Hashtable moduleChecker;
 
+    private Button mButtonEditInformation;
     private Button mButtonEdit;
     private Button mButtonDelete;
 
@@ -65,6 +68,10 @@ public class editSession extends AppCompatActivity {
     // Get user session database
     private FirebaseUser currentUser;
     private DatabaseReference userSessionRef;
+
+    // Edit Information
+    private String information = "No Information Available";
+    private String imageLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,7 @@ public class editSession extends AppCompatActivity {
         mEditTextDate = (EditText) findViewById(R.id.editEditTextDate);
         mEditTextLocation = (EditText)findViewById(R.id.editEditTextLocation);
 
+        mButtonEditInformation = (Button)findViewById(R.id.buttonEditInfo);
         mButtonEdit = (Button)findViewById(R.id.editButtonEdit);
         mButtonDelete = (Button)findViewById(R.id.editButtonDelete);
 
@@ -103,6 +111,7 @@ public class editSession extends AppCompatActivity {
                 mEditTextLocation.setText(session.getLocation());
                 participantCount = session.getParticipantCount();
                 participants = session.getParticipants();
+                imageLink = session.getHostImage();
             }
 
             @Override
@@ -225,6 +234,57 @@ public class editSession extends AppCompatActivity {
                 alertDig.create().show();
             }
         });
+
+        mButtonEditInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(editSession.this);
+                    LayoutInflater inflater = editSession.this.getLayoutInflater();
+                    final View dialogView = inflater.inflate(R.layout.edit_session_info, null);
+                    dialogBuilder.setView(dialogView);
+
+                    final EditText edt = (EditText) dialogView.findViewById(R.id.editInfo);
+
+                    sessionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Session session = new Session();
+                            session = dataSnapshot.getValue(Session.class);
+                            edt.setText(session.getSessionInformation());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    dialogBuilder.setMessage("Edit Session Information below (Maximum 140 characters)");
+                    dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // Edit the users bio in firebase
+                            String newInfo = edt.getText().toString();
+                            if(newInfo.length() > 140) {
+                                Toast.makeText(editSession.this, "Maximum number of characters is 140", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                if(!newInfo.equals("")){
+                                    information = newInfo;
+                                }
+                            }
+                        }
+                    });
+                    dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            //pass
+                        }
+                    });
+                    AlertDialog b = dialogBuilder.create();
+                    b.show();
+                }
+            }
+        });
     }
 
     /*@Override
@@ -254,6 +314,8 @@ public class editSession extends AppCompatActivity {
         session.setLocation(location);
         session.setParticipantCount(participantCount);
         session.setParticipants(participants);
+        session.setHostImage(imageLink);
+        session.setSessionInformation(information);
         mDatabase.child(key).setValue(session);
     }
 
