@@ -12,19 +12,23 @@
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
         android:fontFamily="@font/poiret_one"
         android:text="Date:"
         android:textColor="@color/cardview_light_background"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDate"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLocation"
         app:layout_constraintStart_toStartOf="@+id/editTextDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTiming" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTiming" />
 
     <EditText
         android:id="@+id/editTextDate"
-        android:layout_width="332dp"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="22dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Select Date"
@@ -33,7 +37,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textViewLocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
+        app:layout_constraintTop_toTopOf="@+id/textViewDate" />
 
     <TextView
         android:id="@+id/textViewLocation"
@@ -46,19 +50,21 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextLocation"
         app:layout_constraintStart_toStartOf="@+id/editTextLocation"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
 
     <EditText
         android:id="@+id/editTextLocation"
-        android:layout_width="334dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Enter Location"
         android:inputType="textPersonName"
         android:textColor="@color/cardview_light_background"
-        app:layout_constraintBottom_toTopOf="@+id/buttonCreate"
+        app:layout_constraintBottom_toTopOf="@+id/buttonInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
@@ -67,7 +73,7 @@
         android:id="@+id/buttonCreate"
         android:layout_width="360dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="101dp"
+        android:layout_marginBottom="31dp"
         android:background="@drawable/box"
         android:fontFamily="@font/poiret_one"
         android:text="Create"
@@ -77,7 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonInfo" />
 
     <TextView
         android:id="@+id/textViewModule"
@@ -94,9 +100,11 @@
 
     <AutoCompleteTextView
         android:id="@+id/autoModule"
-        android:layout_width="332dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="17dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="26dp"
         android:ems="10"
         android:textColor="@color/cardview_light_background"
         app:layout_constraintBottom_toTopOf="@+id/textViewTiming"
@@ -108,27 +116,48 @@
         android:id="@+id/textViewTiming"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="63dp"
         android:fontFamily="@font/poiret_one"
         android:text="Timing:"
         android:textColor="@color/cardview_light_background"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTiming"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDate"
         app:layout_constraintStart_toStartOf="@+id/editTextTiming"
         app:layout_constraintTop_toBottomOf="@+id/autoModule" />
 
     <EditText
         android:id="@+id/editTextTiming"
-        android:layout_width="332dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="17dp"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="88dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="88dp"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Select Time"
         android:inputType="time"
         android:textColor="@color/cardview_light_background"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewDate"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTiming" />
+        app:layout_constraintTop_toTopOf="@+id/autoModule" />
+
+    <Button
+        android:id="@+id/buttonInfo"
+        android:layout_width="360dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/box"
+        android:fontFamily="@font/poiret_one"
+        android:text="Add Information"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCreate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLocation" />
 </android.support.constraint.ConstraintLayout>

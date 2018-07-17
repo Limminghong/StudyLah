@@ -10,6 +10,8 @@ public class Session {
     private String timing;
     private String date;
     private String location;
+    private String sessionInformation;
+    private String hostImage;
 
     int participantCount = 0;
     Map<String, Boolean> participants = new HashMap<>();
@@ -44,6 +46,14 @@ public class Session {
         this.participants = participants;
     }
 
+    public void setSessionInformation(String info) {
+        this.sessionInformation = info;
+    }
+
+    public void setHostImage(String link) {
+        this.hostImage = link;
+    }
+
     public String getId() {return id;}
 
     public String getHost() {
@@ -71,4 +81,10 @@ public class Session {
     }
 
     public Map<String, Boolean> getParticipants() { return participants; }
+
+    public String getSessionInformation() { return sessionInformation; }
+
+    public String getHostImage() {
+        return hostImage;
+    }
 }

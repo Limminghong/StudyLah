@@ -3,12 +3,16 @@ package com.example.user.studylah;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.app.VoiceInteractor;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,8 +35,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +57,8 @@ import java.util.Map;
 public class createSession extends AppCompatActivity {
     private static final String TAG = "createSession";
 
+    // Database
+    private DatabaseReference userRef;
     private FirebaseUser currentUser;
 
     private AutoCompleteTextView mAutoModule;
@@ -61,9 +70,14 @@ public class createSession extends AppCompatActivity {
     private Hashtable moduleChecker;
 
     private Button mButtonCreate;
+    private Button mButtonAddInfo;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TimePickerDialog.OnTimeSetListener mTimeSetListener;
+
+    // Get Information
+    private String information = "No Information Available";
+    private String imageThumb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +91,7 @@ public class createSession extends AppCompatActivity {
         mEditTextLocation = (EditText)findViewById(R.id.editTextLocation);
 
         mButtonCreate = (Button)findViewById(R.id.buttonCreate);
+        mButtonAddInfo = (Button)findViewById(R.id.buttonInfo);
 
         moduleCodes = new ArrayList<String>();
         moduleChecker = new Hashtable();
@@ -85,9 +100,23 @@ public class createSession extends AppCompatActivity {
         // Load current user
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        */
+        // Reference to user database
+        userRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid());
+
+        // Retrieve user image thumbnail
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = new User();
+                user = dataSnapshot.getValue(User.class);
+                imageThumb = user.getImageThumb();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         // Create button
         mButtonCreate.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +196,41 @@ public class createSession extends AppCompatActivity {
                 mEditTextDate.setText(date);
             }
         };
+
+        mButtonAddInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(createSession.this);
+                    LayoutInflater inflater = createSession.this.getLayoutInflater();
+                    final View dialogView = inflater.inflate(R.layout.add_session_info, null);
+                    dialogBuilder.setView(dialogView);
+
+                    final EditText edt = (EditText) dialogView.findViewById(R.id.addInfo);
+
+                    dialogBuilder.setMessage("Enter Session Information below (Maximum 140 characters)");
+                    dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // Edit the users bio in firebase
+                            String newInfo = edt.getText().toString();
+                            if(newInfo.length() > 140) {
+                                Toast.makeText(createSession.this, "Maximum number of characters is 140", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                information = newInfo;
+                            }
+                        }
+                    });
+                    dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            //pass
+                        }
+                    });
+                    AlertDialog b = dialogBuilder.create();
+                    b.show();
+                }
+            }
+        });
     }
 
     /*@Override
@@ -192,6 +256,8 @@ public class createSession extends AppCompatActivity {
         session.setTiming(timing);
         session.setDate(date);
         session.setLocation(location);
+        session.setSessionInformation(information);
+        session.setHostImage(imageThumb);
         String sessionId = mDatabase.push().getKey();
         session.setId(sessionId);
         addSessionIntoUser(sessionId);

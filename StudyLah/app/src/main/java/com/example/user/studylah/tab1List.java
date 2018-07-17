@@ -45,8 +45,9 @@ public class tab1List extends Fragment {
     DatabaseReference ref;
 
     //Creating list to store all the session information
-    public ArrayList<String> list;
-    public ArrayAdapter<String> adapter;
+    public ArrayList<String> listDescription;
+    public ArrayList<String> listImage;
+    public CustomListAdapter adapter;
     Session session;
 
     //Creating array to store all the id
@@ -68,17 +69,19 @@ public class tab1List extends Fragment {
         ref = database.getReference("sessions");
 
         //initialise list
-        list = new ArrayList<>();
+        listDescription = new ArrayList<>();
+        listImage = new ArrayList<>();
 
         //initialise adapter to connect firebase data to the list
-        adapter = new ArrayAdapter<>(getActivity(), R.layout.session, R.id.module, list);
+        adapter = new CustomListAdapter(getActivity(), listDescription, listImage);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //lists out all the Sessions that are available
                 //Clear the list and sessionId
-                list.clear();
+                listImage.clear();
+                listDescription.clear();
                 sessionId.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
@@ -87,8 +90,10 @@ public class tab1List extends Fragment {
                                          "Timing: " + session.getTiming() + "\n" +
                                          "Date: " + session.getdate() + "\n" +
                                          "Location: " + session.getLocation();
-                    list.add(module_info);
-                    sessionId.put(list.indexOf(module_info), session.getId());
+                    String imageLink = session.getHostImage();
+                    listDescription.add(module_info);
+                    listImage.add(imageLink);
+                    sessionId.put(listDescription.indexOf(module_info), session.getId());
                 }
                 listView.setAdapter(adapter);
             }
