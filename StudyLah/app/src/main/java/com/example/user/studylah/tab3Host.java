@@ -47,8 +47,13 @@ public class tab3Host extends Fragment {
     DatabaseReference ref;
 
     //Creating list to store all the session information
-    ArrayList<String> list3;
-    ArrayAdapter<String> adapter3;
+    ArrayList<String> listModule3;
+    ArrayList<String> listHost3;
+    ArrayList<String> listTiming3;
+    ArrayList<String> listDate3;
+    ArrayList<String> listLocation3;
+    ArrayList<String> listImage3;
+    CustomListAdapter adapter3;
     Session session;
 
     //Creating array to store all the id
@@ -66,10 +71,15 @@ public class tab3Host extends Fragment {
         ref = database.getReference("sessions");
 
         //initialise list
-        list3 = new ArrayList<>();
+        listModule3 = new ArrayList<>();
+        listHost3 = new ArrayList<>();
+        listTiming3 = new ArrayList<>();
+        listDate3 = new ArrayList<>();
+        listLocation3 = new ArrayList<>();
+        listImage3 = new ArrayList<>();
 
         //initialise adapter to connect firebase data to the list
-        adapter3 = new ArrayAdapter<>(getActivity(),R.layout.session,R.id.module,list3);
+        adapter3 = new CustomListAdapter(getActivity(), listModule3, listHost3, listTiming3, listDate3, listLocation3, listImage3);
 
         //button animation
         final Animation animAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
@@ -79,18 +89,32 @@ public class tab3Host extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //lists out all the Sessions that are available
                 //Clear the list and sessionId
-                list3.clear();
+                listModule3.clear();
+                listImage3.clear();
+                listHost3.clear();
+                listTiming3.clear();
+                listDate3.clear();
+                listLocation3.clear();
                 sessionId.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = session.getModule() + "   " + "Host: " + session.getHost() + "\n" +
-                            "Timing: " + session.getTiming() + "\n" +
-                            "Date: " + session.getdate() + "\n" +
-                            "Location: " + session.getLocation();
+
+                    String module_name = session.getModule();
+                    String module_host = "Host: " + session.getHost();
+                    String module_timing = "Timing: " + session.getTiming();
+                    String module_date = "Date: " + session.getdate();
+                    String module_location = "Location: " + session.getLocation();
+                    String imageLink = session.getHostImage();
+
                     if (session.getHost().equals(name)){
-                        list3.add(module_info);
-                        sessionId.put(list3.indexOf(module_info), session.getId());
+                        listModule3.add(module_name);
+                        listHost3.add(module_host);
+                        listTiming3.add(module_timing);
+                        listDate3.add(module_date);
+                        listLocation3.add(module_location);
+                        listImage3.add(imageLink);
+                        sessionId.put(listModule3.indexOf(module_name), session.getId());
                     }
                 }
                 hostView.setAdapter(adapter3);

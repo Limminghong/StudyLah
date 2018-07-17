@@ -45,7 +45,11 @@ public class tab1List extends Fragment {
     DatabaseReference ref;
 
     //Creating list to store all the session information
-    public ArrayList<String> listDescription;
+    public ArrayList<String> listModule;
+    public ArrayList<String> listHost;
+    public ArrayList<String> listTiming;
+    public ArrayList<String> listDate;
+    public ArrayList<String> listLocation;
     public ArrayList<String> listImage;
     public CustomListAdapter adapter;
     Session session;
@@ -69,31 +73,46 @@ public class tab1List extends Fragment {
         ref = database.getReference("sessions");
 
         //initialise list
-        listDescription = new ArrayList<>();
+        listModule = new ArrayList<>();
+        listHost = new ArrayList<>();
+        listTiming = new ArrayList<>();
+        listDate = new ArrayList<>();
+        listLocation = new ArrayList<>();
         listImage = new ArrayList<>();
 
         //initialise adapter to connect firebase data to the list
-        adapter = new CustomListAdapter(getActivity(), listDescription, listImage);
+        adapter = new CustomListAdapter(getActivity(), listModule, listHost, listTiming, listDate, listLocation, listImage);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //lists out all the Sessions that are available
                 //Clear the list and sessionId
+                listModule.clear();
                 listImage.clear();
-                listDescription.clear();
+                listHost.clear();
+                listTiming.clear();
+                listDate.clear();
+                listLocation.clear();
                 sessionId.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = session.getModule() + "   " + "Host: " + session.getHost() + "\n" +
-                                         "Timing: " + session.getTiming() + "\n" +
-                                         "Date: " + session.getdate() + "\n" +
-                                         "Location: " + session.getLocation();
+
+                    String module_name = session.getModule();
+                    String module_host = "Host: " + session.getHost();
+                    String module_timing = "Timing: " + session.getTiming();
+                    String module_date = "Date: " + session.getdate();
+                    String module_location = "Location: " + session.getLocation();
                     String imageLink = session.getHostImage();
-                    listDescription.add(module_info);
+
+                    listModule.add(module_name);
+                    listHost.add(module_host);
+                    listTiming.add(module_timing);
+                    listDate.add(module_date);
+                    listLocation.add(module_location);
                     listImage.add(imageLink);
-                    sessionId.put(listDescription.indexOf(module_info), session.getId());
+                    sessionId.put(listModule.indexOf(module_name), session.getId());
                 }
                 listView.setAdapter(adapter);
             }

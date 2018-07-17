@@ -45,8 +45,13 @@ public class tab2Join extends Fragment {
     DatabaseReference ref;
 
     //Creating list to store all the session information
-    ArrayList<String> list2;
-    ArrayAdapter<String> adapter2;
+    ArrayList<String> listModule2;
+    ArrayList<String> listHost2;
+    ArrayList<String> listTiming2;
+    ArrayList<String> listDate2;
+    ArrayList<String> listLocation2;
+    ArrayList<String> listImage2;
+    CustomListAdapter adapter2;
     Session session;
 
     //Creating array to store all the id
@@ -64,28 +69,47 @@ public class tab2Join extends Fragment {
         ref = database.getReference("sessions");
 
         //initialise list
-        list2 = new ArrayList<>();
+        listModule2 = new ArrayList<>();
+        listHost2 = new ArrayList<>();
+        listTiming2 = new ArrayList<>();
+        listDate2 = new ArrayList<>();
+        listLocation2 = new ArrayList<>();
+        listImage2 = new ArrayList<>();
 
         //initialise adapter to connect firebase data to the list
-        adapter2 = new ArrayAdapter<>(getActivity(),R.layout.session,R.id.module,list2);
+        adapter2 = new CustomListAdapter(getActivity(), listModule2, listHost2, listTiming2, listDate2, listLocation2, listImage2);
 
         ValueEventListener valueEventListener = ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //clear list to prevent bug
-                list2.clear();
+                //Clear the list and sessionId
+                listModule2.clear();
+                listImage2.clear();
+                listHost2.clear();
+                listTiming2.clear();
+                listDate2.clear();
+                listLocation2.clear();
                 sessionId.clear();
                 //lists out all the Sessions that are available
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
                     session = ds.getValue(Session.class);
-                    String module_info = session.getModule() + "   " + "Host: " + session.getHost() + "\n" +
-                            "Timing: " + session.getTiming() + "\n" +
-                            "Date: " + session.getdate() + "\n" +
-                            "Location: " + session.getLocation();
-                    if (session.getParticipants().containsKey(name)) {
-                        list2.add(module_info);
-                        sessionId.put(list2.indexOf(module_info), session.getId());
+
+                    String module_name = session.getModule();
+                    String module_host = "Host: " + session.getHost();
+                    String module_timing = "Timing: " + session.getTiming();
+                    String module_date = "Date: " + session.getdate();
+                    String module_location = "Location: " + session.getLocation();
+                    String imageLink = session.getHostImage();
+
+                    if (session.getParticipants().containsKey(name)){
+                        listModule2.add(module_name);
+                        listHost2.add(module_host);
+                        listTiming2.add(module_timing);
+                        listDate2.add(module_date);
+                        listLocation2.add(module_location);
+                        listImage2.add(imageLink);
+                        sessionId.put(listModule2.indexOf(module_name), session.getId());
                     }
                 }
                 joinList.setAdapter(adapter2);

@@ -11,33 +11,19 @@
         android:id="@+id/userImage2"
         android:layout_width="81dp"
         android:layout_height="78dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="42dp"
         android:src="@mipmap/ic_launcher_round"
-        app:layout_constraintBottom_toBottomOf="@+id/module"
+        app:layout_constraintEnd_toStartOf="@+id/textHost"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/module" />
-
-    <TextView
-        android:id="@+id/module"
-        android:layout_width="0dp"
-        android:layout_height="132dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/poiret_one"
-        android:text="TextView"
-        android:textAlignment="gravity"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/time_id"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/calendar_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/time_id"
         app:layout_constraintTop_toBottomOf="@+id/time_id"
         app:srcCompat="@drawable/ic_date_range_black_24dp" />
@@ -46,9 +32,9 @@
         android:id="@+id/location_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="127dp"
-        app:layout_constraintEnd_toStartOf="@+id/module"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintStart_toEndOf="@+id/userImage2"
         app:layout_constraintTop_toBottomOf="@+id/calendar_id"
         app:srcCompat="@drawable/ic_location_on_black_24dp" />
 
@@ -56,11 +42,57 @@
         android:id="@+id/time_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="127dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toStartOf="@+id/module"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/module"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toEndOf="@+id/userImage2"
+        app:layout_constraintTop_toTopOf="@+id/userImage2"
         app:srcCompat="@drawable/ic_access_time_black_24dp" />
+
+    <TextView
+        android:id="@+id/textTiming"
+        android:layout_width="204dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Timing: "
+        app:layout_constraintStart_toStartOf="@+id/textHost"
+        app:layout_constraintTop_toBottomOf="@+id/textHost" />
+
+    <TextView
+        android:id="@+id/textHost"
+        android:layout_width="204dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Host: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textModule" />
+
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="204dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Date: "
+        app:layout_constraintStart_toStartOf="@+id/textTiming"
+        app:layout_constraintTop_toBottomOf="@+id/textTiming" />
+
+    <TextView
+        android:id="@+id/textLocation"
+        android:layout_width="204dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Location: "
+        app:layout_constraintStart_toStartOf="@+id/textDate"
+        app:layout_constraintTop_toBottomOf="@+id/textDate" />
+
+    <TextView
+        android:id="@+id/textModule"
+        android:layout_width="204dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Module: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
