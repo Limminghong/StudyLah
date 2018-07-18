@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userFace"
+        android:layout_width="102dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dialogModule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Module"
+        app:layout_constraintStart_toEndOf="@+id/userFace"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dialogTiming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Timing"
+        app:layout_constraintStart_toStartOf="@+id/dialogHost"
+        app:layout_constraintTop_toBottomOf="@+id/dialogHost" />
+
+    <TextView
+        android:id="@+id/dialogDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Date"
+        app:layout_constraintStart_toStartOf="@+id/dialogTiming"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTiming" />
+
+    <TextView
+        android:id="@+id/dialogLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Location"
+        app:layout_constraintStart_toStartOf="@+id/dialogDate"
+        app:layout_constraintTop_toBottomOf="@+id/dialogDate" />
+
+    <TextView
+        android:id="@+id/dialogInfo"
+        android:layout_width="306dp"
+        android:layout_height="137dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="No Session Information Available"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userFace" />
+
+    <TextView
+        android:id="@+id/dialogHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Host"
+        app:layout_constraintStart_toStartOf="@+id/dialogModule"
+        app:layout_constraintTop_toBottomOf="@+id/dialogModule" />
+
+</android.support.constraint.ConstraintLayout>

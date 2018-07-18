@@ -1,6 +1,7 @@
 package com.example.user.studylah;
 
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -28,12 +29,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class tab1List extends Fragment {
 
@@ -63,7 +67,7 @@ public class tab1List extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab1_list, container, false);
+        final View rootView = inflater.inflate(R.layout.tab1_list, container, false);
 
         session = new Session();
         listView = (ListView) rootView.findViewById(R.id.listView);
@@ -147,13 +151,52 @@ public class tab1List extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 currentUsername = currentUser.getDisplayName();
+
+                LayoutInflater inflater = tab1List.this.getLayoutInflater();
                 AlertDialog.Builder alertDig = new AlertDialog.Builder(getActivity());
-                alertDig.setMessage("Do you want to join this session?");
+                final View dialogView = inflater.inflate(R.layout.session_info_dialog, null);
+                alertDig.setView(dialogView);
                 alertDig.setCancelable(false);
+
+                // Initialise widgets in dialog
+                final CircleImageView mUserFace = (CircleImageView)dialogView.findViewById(R.id.userFace);
+                final TextView mDialogHost = (TextView)dialogView.findViewById(R.id.dialogHost);
+                final TextView mDialogModule = (TextView)dialogView.findViewById(R.id.dialogModule);
+                final TextView mDialogTiming = (TextView)dialogView.findViewById(R.id.dialogTiming);
+                final TextView mDialogDate = (TextView)dialogView.findViewById(R.id.dialogDate);
+                final TextView mDialogLocation = (TextView)dialogView.findViewById(R.id.dialogLocation);
+                final TextView mDialogInfo = (TextView)dialogView.findViewById(R.id.dialogInfo);
 
                 String key = sessionId.get(i);
                 final DatabaseReference sessionRef = database.getReference("/sessions/" + key);
 
+                sessionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Session thisSession = new Session();
+                        thisSession = dataSnapshot.getValue(Session.class);
+
+                        final String imageLink = thisSession.getHostImage();
+
+                        if(!imageLink.equals("default")) {
+                            Picasso.get().load(imageLink).into(mUserFace);
+                        }
+
+                        mDialogModule.setText(thisSession.getModule());
+                        mDialogHost.setText("Host: " + thisSession.getHost());
+                        mDialogTiming.setText("Timing: " + thisSession.getTiming());
+                        mDialogDate.setText("Date: " + thisSession.getdate());
+                        mDialogLocation.setText("Location: " + thisSession.getLocation());
+                        mDialogInfo.setText(thisSession.getSessionInformation());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                alertDig.setMessage("Do you want to join this session?");
                 alertDig.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
