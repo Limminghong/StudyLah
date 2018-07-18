@@ -63,6 +63,7 @@ public class createSession extends AppCompatActivity {
 
     private AutoCompleteTextView mAutoModule;
     private EditText mEditTextTiming;
+    private EditText mEditTextTiming2;
     private EditText mEditTextDate;
     private EditText mEditTextLocation;
 
@@ -74,6 +75,7 @@ public class createSession extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TimePickerDialog.OnTimeSetListener mTimeSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener2;
 
     // Get Information
     private String information = "No Information Available";
@@ -87,6 +89,7 @@ public class createSession extends AppCompatActivity {
         // Initialise widgets
         mAutoModule = (AutoCompleteTextView) findViewById(R.id.autoModule);
         mEditTextTiming = (EditText)findViewById(R.id.editTextTiming);
+        mEditTextTiming2 = (EditText)findViewById(R.id.editTextTiming2);
         mEditTextDate = (EditText) findViewById(R.id.editTextDate);
         mEditTextLocation = (EditText)findViewById(R.id.editTextLocation);
 
@@ -125,7 +128,7 @@ public class createSession extends AppCompatActivity {
                 if(checkModuleValidity(mAutoModule.getText().toString().trim())) {
                     Toast.makeText(createSession.this, "Please Enter A Valid Module", Toast.LENGTH_SHORT).show();
                 }
-                else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim())) {
+                else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim()) || TextUtils.isEmpty(mEditTextTiming2.getText().toString().trim())) {
                     Toast.makeText(createSession.this, "Please Enter Timing", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(mEditTextDate.getText().toString().trim())) {
                     Toast.makeText(createSession.this, "Please Enter Date", Toast.LENGTH_SHORT).show();
@@ -160,11 +163,51 @@ public class createSession extends AppCompatActivity {
             }
         });
 
+        mEditTextTiming2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int minute = cal.get(Calendar.MINUTE);
+                boolean is24Hour = true;
+
+                TimePickerDialog dialog = new TimePickerDialog(
+                        createSession.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mTimeSetListener2,
+                        hour, minute, is24Hour
+                );
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
         mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String time = hourOfDay + ":" + minute;
+                String time;
+                if(minute < 10) {
+                    time = hourOfDay + ":" +  "0" + minute;
+                }
+                else {
+                    time = hourOfDay + ":" + minute;
+                }
                 mEditTextTiming.setText(time);
+            }
+        };
+
+        mTimeSetListener2 = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String time;
+                if(minute < 10) {
+                    time = hourOfDay + ":" +  "0" + minute;
+                }
+                else {
+                    time = hourOfDay + ":" + minute;
+                }
+                mEditTextTiming2.setText(time);
             }
         };
 
@@ -244,7 +287,8 @@ public class createSession extends AppCompatActivity {
 
         String username = user.getDisplayName().toString();
         String module = mAutoModule.getText().toString().trim();
-        String timing = mEditTextTiming.getText().toString().trim();
+        String timingFrom = mEditTextTiming.getText().toString().trim();
+        String timingTo = mEditTextTiming2.getText().toString().trim();
         String date = mEditTextDate.getText().toString().trim();
         String location = mEditTextLocation.getText().toString().trim();
         // Write message to database
@@ -253,7 +297,8 @@ public class createSession extends AppCompatActivity {
         Session session = new Session();
         session.setHost(username);
         session.setModule(module);
-        session.setTiming(timing);
+        session.setTimingFrom(timingFrom);
+        session.setTimingTo(timingTo);
         session.setDate(date);
         session.setLocation(location);
         session.setSessionInformation(information);

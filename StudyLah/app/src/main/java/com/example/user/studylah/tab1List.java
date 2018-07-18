@@ -105,7 +105,7 @@ public class tab1List extends Fragment {
 
                     String module_name = session.getModule();
                     String module_host = "Host: " + session.getHost();
-                    String module_timing = "Timing: " + session.getTiming();
+                    String module_timing = "Timing: " + session.getTimingFrom() + " - " + session.getTimingTo();
                     String module_date = "Date: " + session.getdate();
                     String module_location = "Location: " + session.getLocation();
                     String imageLink = session.getHostImage();
@@ -184,7 +184,7 @@ public class tab1List extends Fragment {
 
                         mDialogModule.setText(thisSession.getModule());
                         mDialogHost.setText("Host: " + thisSession.getHost());
-                        mDialogTiming.setText("Timing: " + thisSession.getTiming());
+                        mDialogTiming.setText("Timing: " + thisSession.getTimingFrom() + " - " + thisSession.getTimingTo());
                         mDialogDate.setText("Date: " + thisSession.getdate());
                         mDialogLocation.setText("Location: " + thisSession.getLocation());
                         mDialogInfo.setText(thisSession.getSessionInformation());

@@ -7,7 +7,8 @@ public class Session {
     private String id;
     private String host;
     private String module;
-    private String timing;
+    private String timingFrom;
+    private String timingTo;
     private String date;
     private String location;
     private String sessionInformation;
@@ -28,8 +29,12 @@ public class Session {
         this.module = module;
     }
 
-    public void setTiming(String timing) {
-        this.timing = timing;
+    public void setTimingFrom(String timingFrom) {
+        this.timingFrom = timingFrom;
+    }
+
+    public void setTimingTo(String timingTo) {
+        this.timingTo = timingTo;
     }
 
     public void setDate(String date) {this.date = date;}
@@ -64,9 +69,11 @@ public class Session {
         return module;
     }
 
-    public String getTiming() {
-        return timing;
+    public String getTimingFrom() {
+        return timingFrom;
     }
+
+    public String getTimingTo() { return timingTo; }
 
     public String getdate() {
         return date;

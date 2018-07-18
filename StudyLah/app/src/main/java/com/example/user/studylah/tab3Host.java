@@ -102,7 +102,7 @@ public class tab3Host extends Fragment {
 
                     String module_name = session.getModule();
                     String module_host = "Host: " + session.getHost();
-                    String module_timing = "Timing: " + session.getTiming();
+                    String module_timing = "Timing: " + session.getTimingFrom() + " - " + session.getTimingTo();
                     String module_date = "Date: " + session.getdate();
                     String module_location = "Location: " + session.getLocation();
                     String imageLink = session.getHostImage();

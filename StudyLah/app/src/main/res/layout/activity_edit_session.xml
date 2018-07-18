@@ -56,7 +56,7 @@
     <TextView
         android:id="@+id/editTextViewLocation"
         android:layout_width="84dp"
-        android:layout_height="0dp"
+        android:layout_height="32dp"
         android:layout_marginStart="1dp"
         android:fontFamily="@font/poiret_one"
         android:text="Location:"
@@ -103,7 +103,7 @@
         android:id="@+id/editTextViewModule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="37dp"
         android:fontFamily="@font/poiret_one"
         android:text="Modules: "
         android:textColor="@color/cardview_light_background"
@@ -131,32 +131,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="67dp"
+        android:layout_marginStart="24dp"
         android:fontFamily="@font/poiret_one"
         android:text="Timing:"
         android:textColor="@color/cardview_light_background"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextViewDate"
-        app:layout_constraintStart_toStartOf="@+id/editEditTextTiming"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editAutoModule" />
 
     <EditText
         android:id="@+id/editEditTextTiming"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="115dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="115dp"
+        android:layout_width="106dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Select Time"
         android:inputType="time"
         android:textColor="@color/cardview_light_background"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextViewLocation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextViewModule" />
+        app:layout_constraintStart_toStartOf="@+id/editTextTimingFrom"
+        app:layout_constraintTop_toBottomOf="@+id/editTextViewTiming" />
 
     <Button
         android:id="@+id/editButtonDelete"
@@ -174,4 +171,40 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/editButtonEdit"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editEditTextTiming2"
+        android:layout_width="106dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="88dp"
+        android:ems="10"
+        android:fontFamily="@font/poiret_one"
+        android:hint="Select Time"
+        android:inputType="time"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextTimingTo"
+        app:layout_constraintTop_toTopOf="@+id/editEditTextTiming" />
+
+    <TextView
+        android:id="@+id/editTextTimingFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poiret_one"
+        android:textColor="@color/cardview_light_background"
+        android:text="From:"
+        app:layout_constraintStart_toStartOf="@+id/editAutoModule"
+        app:layout_constraintTop_toBottomOf="@+id/editTextViewTiming" />
+
+    <TextView
+        android:id="@+id/editTextTimingTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poiret_one"
+
+        android:text="To:"
+        app:layout_constraintStart_toEndOf="@+id/editEditTextTiming"
+        app:layout_constraintTop_toTopOf="@+id/editTextTimingFrom" />
 </android.support.constraint.ConstraintLayout>

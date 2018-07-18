@@ -44,6 +44,7 @@ import java.util.Map;
 public class editSession extends AppCompatActivity {
     private AutoCompleteTextView mAutoModule;
     private EditText mEditTextTiming;
+    private EditText mEditTextTiming2;
     private EditText mEditTextDate;
     private EditText mEditTextLocation;
 
@@ -59,6 +60,7 @@ public class editSession extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TimePickerDialog.OnTimeSetListener mTimeSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener2;
 
     // Get database
     String key;
@@ -89,6 +91,7 @@ public class editSession extends AppCompatActivity {
         // Initialise widgets
         mAutoModule = (AutoCompleteTextView)findViewById(R.id.editAutoModule);
         mEditTextTiming = (EditText)findViewById(R.id.editEditTextTiming);
+        mEditTextTiming2 = (EditText)findViewById(R.id.editEditTextTiming2);
         mEditTextDate = (EditText) findViewById(R.id.editEditTextDate);
         mEditTextLocation = (EditText)findViewById(R.id.editEditTextLocation);
 
@@ -106,7 +109,8 @@ public class editSession extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Session session = dataSnapshot.getValue(Session.class);
                 mAutoModule.setText(session.getModule());
-                mEditTextTiming.setText(session.getTiming());
+                mEditTextTiming.setText(session.getTimingFrom());
+                mEditTextTiming2.setText(session.getTimingTo());
                 mEditTextDate.setText(session.getdate());
                 mEditTextLocation.setText(session.getLocation());
                 participantCount = session.getParticipantCount();
@@ -131,7 +135,7 @@ public class editSession extends AppCompatActivity {
                 if(checkModuleValidity(mAutoModule.getText().toString().trim())) {
                     Toast.makeText(editSession.this, "Please Enter A Valid Module", Toast.LENGTH_SHORT).show();
                 }
-                else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim())) {
+                else if(TextUtils.isEmpty(mEditTextTiming.getText().toString().trim()) || TextUtils.isEmpty(mEditTextTiming2.getText().toString().trim())) {
                     Toast.makeText(editSession.this, "Please Enter Timing", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(mEditTextDate.getText().toString().trim())) {
                     Toast.makeText(editSession.this, "Please Enter Date", Toast.LENGTH_SHORT).show();
@@ -166,11 +170,51 @@ public class editSession extends AppCompatActivity {
             }
         });
 
+        mEditTextTiming2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int minute = cal.get(Calendar.MINUTE);
+                boolean is24Hour = true;
+
+                TimePickerDialog dialog = new TimePickerDialog(
+                        editSession.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mTimeSetListener2,
+                        hour, minute, is24Hour
+                );
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
         mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String time = hourOfDay + ":" + minute;
+                String time;
+                if(minute < 10) {
+                    time = hourOfDay + ":" +  "0" + minute;
+                }
+                else {
+                    time = hourOfDay + ":" + minute;
+                }
                 mEditTextTiming.setText(time);
+            }
+        };
+
+        mTimeSetListener2 = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String time;
+                if(minute < 10) {
+                    time = hourOfDay + ":" +  "0" + minute;
+                }
+                else {
+                    time = hourOfDay + ":" + minute;
+                }
+                mEditTextTiming2.setText(time);
             }
         };
 
@@ -299,7 +343,8 @@ public class editSession extends AppCompatActivity {
 
         String username = user.getDisplayName().toString();
         String module = mAutoModule.getText().toString().trim();
-        String timing = mEditTextTiming.getText().toString().trim();
+        String timingFrom = mEditTextTiming.getText().toString().trim();
+        String timingTo = mEditTextTiming2.getText().toString().trim();
         String date = mEditTextDate.getText().toString().trim();
         String location = mEditTextLocation.getText().toString().trim();
         // Write message to database
@@ -309,7 +354,8 @@ public class editSession extends AppCompatActivity {
         session.setId(key);
         session.setHost(username);
         session.setModule(module);
-        session.setTiming(timing);
+        session.setTimingFrom(timingFrom);
+        session.setTimingTo(timingTo);
         session.setDate(date);
         session.setLocation(location);
         session.setParticipantCount(participantCount);
