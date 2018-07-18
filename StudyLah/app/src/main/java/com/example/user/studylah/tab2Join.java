@@ -2,6 +2,7 @@ package com.example.user.studylah;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,10 +26,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class tab2Join extends Fragment {
     Button mButtonHost;
@@ -124,13 +129,51 @@ public class tab2Join extends Fragment {
         joinList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-
+                LayoutInflater inflater = tab2Join.this.getLayoutInflater();
                 AlertDialog.Builder alertDig = new AlertDialog.Builder(getActivity());
-                alertDig.setMessage("Do you want to leave this session?");
+                final View dialogView = inflater.inflate(R.layout.session_info_dialog, null);
+                alertDig.setView(dialogView);
                 alertDig.setCancelable(false);
+
+                // Initialise widgets in dialog
+                final CircleImageView mUserFace = (CircleImageView)dialogView.findViewById(R.id.userFace);
+                final TextView mDialogHost = (TextView)dialogView.findViewById(R.id.dialogHost);
+                final TextView mDialogModule = (TextView)dialogView.findViewById(R.id.dialogModule);
+                final TextView mDialogTiming = (TextView)dialogView.findViewById(R.id.dialogTiming);
+                final TextView mDialogDate = (TextView)dialogView.findViewById(R.id.dialogDate);
+                final TextView mDialogLocation = (TextView)dialogView.findViewById(R.id.dialogLocation);
+                final TextView mDialogInfo = (TextView)dialogView.findViewById(R.id.dialogInfo);
+
                 String key = sessionId.get(i);
                 final DatabaseReference sessionRef = database.getReference("/sessions/" + key);
 
+                sessionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Session thisSession = new Session();
+                        thisSession = dataSnapshot.getValue(Session.class);
+
+                        final String imageLink = thisSession.getHostImage();
+
+                        if(!imageLink.equals("default")) {
+                            Picasso.get().load(imageLink).into(mUserFace);
+                        }
+
+                        mDialogModule.setText(thisSession.getModule());
+                        mDialogHost.setText("Host: " + thisSession.getHost());
+                        mDialogTiming.setText("Timing: " + thisSession.getTiming());
+                        mDialogDate.setText("Date: " + thisSession.getdate());
+                        mDialogLocation.setText("Location: " + thisSession.getLocation());
+                        mDialogInfo.setText(thisSession.getSessionInformation());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                alertDig.setMessage("Do you want to leave this session?");
                 alertDig.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
