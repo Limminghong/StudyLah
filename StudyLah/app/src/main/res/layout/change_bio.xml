@@ -14,8 +14,13 @@
             android:id="@+id/editBio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/box_login_final2"
+            android:fontFamily="@font/poiret_one"
             android:hint="Write your bio here"
-            android:inputType="text" />
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:inputType="text"
+            android:textAlignment="center" />
 
     </LinearLayout>
 

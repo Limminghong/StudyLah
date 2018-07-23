@@ -8,10 +8,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userFace"
-        android:layout_width="102dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="146dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:src="@mipmap/ic_launcher_round"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,8 +57,8 @@
         android:id="@+id/dialogInfo"
         android:layout_width="306dp"
         android:layout_height="137dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
         android:text="No Session Information Available"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userFace" />
