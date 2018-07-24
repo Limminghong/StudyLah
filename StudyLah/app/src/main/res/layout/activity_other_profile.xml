@@ -4,20 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlue"
+    android:background="@drawable/gradient_background"
     tools:layout_editor_absoluteY="25dp">
-
-    <ImageView
-        android:id="@+id/otherImageView"
-        android:layout_width="162dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="42dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/otherEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/white_decoration_ball" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/otherImage"

@@ -95,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout:
                 userLogout();
                 return true;
-            case R.id.action_settings:
+            case R.id.search_Users:
+                searchUser();
                 return true;
             case R.id.action_changePassword:
                 userChangePassword();
@@ -191,6 +192,12 @@ public class MainActivity extends AppCompatActivity {
     // Go to change password
     private void userChangePassword() {
         Intent intent = new Intent(MainActivity.this, ChangePassword.class);
+        startActivity(intent);
+    }
+
+    // Go to search user activity
+    private void searchUser() {
+        Intent intent = new Intent(MainActivity.this, SearchUser.class);
         startActivity(intent);
     }
 }
