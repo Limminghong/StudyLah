@@ -1,0 +1,50 @@
+[debug] [2018-07-22T06:03:26.539Z] ----------------------------------------------------------------------
+[debug] [2018-07-22T06:03:26.541Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\USER\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init function
+[debug] [2018-07-22T06:03:26.541Z] CLI Version:   3.19.3
+[debug] [2018-07-22T06:03:26.541Z] Platform:      win32
+[debug] [2018-07-22T06:03:26.541Z] Node Version:  v8.11.1
+[debug] [2018-07-22T06:03:26.542Z] Time:          Sun Jul 22 2018 14:03:26 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2018-07-22T06:03:26.542Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-07-22T06:03:26.550Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2018-07-22T06:03:26.551Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\USER\Desktop\StudyLah
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2018-07-22T06:03:31.159Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-07-22T06:03:31.159Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/GvFFd9rbsfEV2LuDC_u3R6fo10usB_0WOMQfkRwkDAHG_WhOzajB01jniTyB3RnB',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sun Jul 22 2018 14:03:31 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2018-07-22T06:03:31.348Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-22T06:03:31.415Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+  
+ Sun Jul 22 2018 14:03:31 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2018-07-22T06:03:32.510Z] <<< HTTP RESPONSE 200
+[info] 
+=== Function Setup
+[debug] [2018-07-22T06:04:21.711Z] TypeError: features[nextFeature] is not a function
+    at init (C:\Users\USER\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:13:49)
+    at C:\Users\USER\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:14:14
+    at <anonymous>
+    at process._tickDomainCallback (internal/process/next_tick.js:228:7)
+[error] 
+[error] Error: An unexpected error has occurred.

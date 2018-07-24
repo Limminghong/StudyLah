@@ -74,6 +74,7 @@ public class editSession extends AppCompatActivity {
     // Edit Information
     private String information = "No Information Available";
     private String imageLink;
+    private long timestamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +117,7 @@ public class editSession extends AppCompatActivity {
                 participantCount = session.getParticipantCount();
                 participants = session.getParticipants();
                 imageLink = session.getHostImage();
+                timestamp = session.getTimestamp();
             }
 
             @Override
@@ -361,6 +363,7 @@ public class editSession extends AppCompatActivity {
         session.setParticipantCount(participantCount);
         session.setParticipants(participants);
         session.setHostImage(imageLink);
+        session.setTimestamp(timestamp);
         session.setSessionInformation(information);
         mDatabase.child(key).setValue(session);
     }

@@ -47,8 +47,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -291,6 +293,7 @@ public class createSession extends AppCompatActivity {
         String timingTo = mEditTextTiming2.getText().toString().trim();
         String date = mEditTextDate.getText().toString().trim();
         String location = mEditTextLocation.getText().toString().trim();
+        long timestamp = convertToTimestamp(date, timingTo);
         // Write message to database
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("sessions");
         // Session object to store info
@@ -303,10 +306,25 @@ public class createSession extends AppCompatActivity {
         session.setLocation(location);
         session.setSessionInformation(information);
         session.setHostImage(imageThumb);
+        session.setTimestamp(timestamp);
         String sessionId = mDatabase.push().getKey();
         session.setId(sessionId);
         addSessionIntoUser(sessionId);
         mDatabase.child(sessionId).setValue(session);
+    }
+
+    private long convertToTimestamp(String date, String timing) {
+        try {
+            String myDate = date + " " + timing + ":00";
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date timestamp = sdf.parse(myDate);
+            long millis = timestamp.getTime();
+            return  millis;
+        }
+        catch (Exception e){
+            // default error
+            return 0;
+        }
     }
 
     private void addSessionIntoUser(String sessionId) {

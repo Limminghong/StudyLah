@@ -13,6 +13,7 @@ public class Session {
     private String location;
     private String sessionInformation;
     private String hostImage;
+    private long timestamp;
 
     int participantCount = 0;
     Map<String, Boolean> participants = new HashMap<>();
@@ -59,6 +60,10 @@ public class Session {
         this.hostImage = link;
     }
 
+    public void setTimestamp (long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public String getId() {return id;}
 
     public String getHost() {
@@ -93,5 +98,9 @@ public class Session {
 
     public String getHostImage() {
         return hostImage;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 }
