@@ -62,6 +62,9 @@ public class tab2Join extends Fragment {
     //Creating array to store all the id
     Map<Integer, String> sessionId = new HashMap<>();
 
+    // Creating array to store hostId
+    Map<Integer, String> hostIds = new HashMap<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,6 +97,7 @@ public class tab2Join extends Fragment {
                 listTiming2.clear();
                 listDate2.clear();
                 listLocation2.clear();
+                hostIds.clear();
                 sessionId.clear();
                 //lists out all the Sessions that are available
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -114,6 +118,7 @@ public class tab2Join extends Fragment {
                         listDate2.add(module_date);
                         listLocation2.add(module_location);
                         listImage2.add(imageLink);
+                        hostIds.put(listModule2.indexOf(module_name), session.getHostId());
                         sessionId.put(listModule2.indexOf(module_name), session.getId());
                     }
                 }
@@ -144,6 +149,7 @@ public class tab2Join extends Fragment {
                 final TextView mDialogLocation = (TextView)dialogView.findViewById(R.id.dialogLocation);
                 final TextView mDialogInfo = (TextView)dialogView.findViewById(R.id.dialogInfo);
 
+                final String hostId = hostIds.get(i);
                 String key = sessionId.get(i);
                 final DatabaseReference sessionRef = database.getReference("/sessions/" + key);
 
@@ -210,6 +216,15 @@ public class tab2Join extends Fragment {
                 });
 
                 alertDig.create().show();
+
+                mDialogHost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), OtherProfile.class);
+                        intent.putExtra("HOST_ID", hostId);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 

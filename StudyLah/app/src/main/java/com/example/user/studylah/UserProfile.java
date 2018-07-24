@@ -94,7 +94,6 @@ public class UserProfile extends AppCompatActivity {
 
                 // Get information from snapshot
                 String name = user.getUsername();
-                String image = user.getImageLink();
                 String email = user.getEmail();
                 String bio = user.getBio();
                 String imageThumb = user.getImageThumb();

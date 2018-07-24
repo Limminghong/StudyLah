@@ -288,6 +288,7 @@ public class createSession extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         String username = user.getDisplayName().toString();
+        String hostId = user.getUid();
         String module = mAutoModule.getText().toString().trim();
         String timingFrom = mEditTextTiming.getText().toString().trim();
         String timingTo = mEditTextTiming2.getText().toString().trim();
@@ -307,6 +308,7 @@ public class createSession extends AppCompatActivity {
         session.setSessionInformation(information);
         session.setHostImage(imageThumb);
         session.setTimestamp(timestamp);
+        session.setHostId(hostId);
         String sessionId = mDatabase.push().getKey();
         session.setId(sessionId);
         addSessionIntoUser(sessionId);

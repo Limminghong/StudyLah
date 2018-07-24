@@ -13,6 +13,7 @@ public class Session {
     private String location;
     private String sessionInformation;
     private String hostImage;
+    private String hostId;
     private long timestamp;
 
     int participantCount = 0;
@@ -64,6 +65,10 @@ public class Session {
         this.timestamp = timestamp;
     }
 
+    public void setHostId (String hostId) {
+        this.hostId = hostId;
+    }
+
     public String getId() {return id;}
 
     public String getHost() {
@@ -98,6 +103,10 @@ public class Session {
 
     public String getHostImage() {
         return hostImage;
+    }
+
+    public String getHostId() {
+        return hostId;
     }
 
     public long getTimestamp() {

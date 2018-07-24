@@ -10,11 +10,11 @@
         android:title="Profile"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/search_Users"
         android:orderInCategory="2"
         android:icon="@drawable/ic_settings_black_24dp"
         android:iconTint="@color/white"
-        android:title="@string/action_settings"
+        android:title="Search Users"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_changePassword"

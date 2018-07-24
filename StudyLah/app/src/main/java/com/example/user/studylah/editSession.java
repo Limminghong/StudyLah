@@ -354,6 +354,7 @@ public class editSession extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         String username = user.getDisplayName().toString();
+        String hostId = user.getUid();
         String module = mAutoModule.getText().toString().trim();
         String timingFrom = mEditTextTiming.getText().toString().trim();
         String timingTo = mEditTextTiming2.getText().toString().trim();
@@ -374,6 +375,7 @@ public class editSession extends AppCompatActivity {
         session.setParticipants(participants);
         session.setHostImage(imageLink);
         session.setTimestamp(timestamp);
+        session.setHostId(hostId);
         session.setSessionInformation(information);
         mDatabase.child(key).setValue(session);
     }

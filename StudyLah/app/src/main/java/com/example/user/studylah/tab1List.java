@@ -1,6 +1,7 @@
 package com.example.user.studylah;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -58,8 +59,11 @@ public class tab1List extends Fragment {
     public CustomListAdapter adapter;
     Session session;
 
-    //Creating array to store all the id
+    // Creating array to store all the id
     Map<Integer, String> sessionId = new HashMap<>();
+
+    // Creating array to store hostId
+    Map<Integer, String> hostIds = new HashMap<>();
 
     // Get current username
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -98,6 +102,7 @@ public class tab1List extends Fragment {
                 listTiming.clear();
                 listDate.clear();
                 listLocation.clear();
+                hostIds.clear();
                 sessionId.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //receives all the information for each session
@@ -116,6 +121,7 @@ public class tab1List extends Fragment {
                     listDate.add(module_date);
                     listLocation.add(module_location);
                     listImage.add(imageLink);
+                    hostIds.put(listModule.indexOf(module_name), session.getHostId());
                     sessionId.put(listModule.indexOf(module_name), session.getId());
                 }
                 listView.setAdapter(adapter);
@@ -167,6 +173,8 @@ public class tab1List extends Fragment {
                 final TextView mDialogLocation = (TextView)dialogView.findViewById(R.id.dialogLocation);
                 final TextView mDialogInfo = (TextView)dialogView.findViewById(R.id.dialogInfo);
 
+                //Get some information
+                final String hostId = hostIds.get(i);
                 String key = sessionId.get(i);
                 final DatabaseReference sessionRef = database.getReference("/sessions/" + key);
 
@@ -233,6 +241,15 @@ public class tab1List extends Fragment {
                 });
 
                 alertDig.create().show();
+
+                mDialogHost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), OtherProfile.class);
+                        intent.putExtra("HOST_ID", hostId);
+                        startActivity(intent);
+                    }
+                });
             }
 
         });
