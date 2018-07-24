@@ -59,7 +59,6 @@ public class SignupActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String username = ds.getKey();
-                    Log.i("name", username);
                     nameChecker.put(username, 1);
                 }
             }

@@ -71,6 +71,10 @@ public class editSession extends AppCompatActivity {
     private FirebaseUser currentUser;
     private DatabaseReference userSessionRef;
 
+    // Get current user reference
+    String current_uid;
+    private DatabaseReference currentUserRef;
+
     // Edit Information
     private String information = "No Information Available";
     private String imageLink;
@@ -88,6 +92,10 @@ public class editSession extends AppCompatActivity {
 
         // Initialise current user
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Initialise current user reference
+        current_uid = currentUser.getUid();
+        currentUserRef = database.getReference("/users/" + current_uid + "/hostedSessions");
 
         // Initialise widgets
         mAutoModule = (AutoCompleteTextView)findViewById(R.id.editAutoModule);
@@ -266,6 +274,8 @@ public class editSession extends AppCompatActivity {
 
                         // Delete session
                         sessionRef.removeValue();
+                        // Delete from user list
+                        currentUserRef.child(key).removeValue();
                         backToMainActivity();
                     }
                 });

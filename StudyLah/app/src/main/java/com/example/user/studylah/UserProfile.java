@@ -237,6 +237,8 @@ public class UserProfile extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> image_task) {
                                                                 if(image_task.isSuccessful()) {
+                                                                    // Change all session images
+                                                                    changeImages(thumb_downloadUrl);
                                                                     mProgessDialog.dismiss();
                                                                 }
                                                                 else {
@@ -266,5 +268,42 @@ public class UserProfile extends AppCompatActivity {
                 Exception error = result.getError();
             }
         }
+    }
+
+    private void changeImages(final String link) {
+        final DatabaseReference userHostedSessions = mUserDatabase.child("hostedSessions");
+        userHostedSessions.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    final String session_key = ds.getKey();
+                    final DatabaseReference sessionRef = FirebaseDatabase.getInstance().getReference("sessions").child(session_key);
+
+                    sessionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                Map update_map = new HashMap();
+                                update_map.put("hostImage", link);
+                                sessionRef.updateChildren(update_map);
+                            }
+                            else {
+                                userHostedSessions.child(session_key).removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
