@@ -11,37 +11,39 @@
     <EditText
         android:id="@+id/editTextEmailLogin"
         android:layout_width="318dp"
-        android:layout_height="59dp"
+        android:layout_height="53dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="176dp"
-        android:background="@drawable/box_final"
+        android:layout_marginTop="182dp"
+        android:background="@drawable/box_final_final"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:singleLine="false"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
+        android:textColor="#07b0c3"
+        android:textColorHint="#07b0c3"
+        android:textSize="24sp"
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="259dp" />
 
     <EditText
         android:id="@+id/editTextPasswordLogin"
-        android:layout_width="314dp"
-        android:layout_height="59dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/box_final"
+        android:layout_width="318dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="241dp"
+        android:background="@drawable/box_final_final"
         android:ems="10"
         android:fontFamily="@font/poiret_one"
         android:hint="Password"
         android:inputType="textPassword"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
+        android:textColor="#07b0c3"
+        android:textColorHint="#07b0c3"
+        android:textSize="24sp"
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="352dp" />
 
@@ -51,21 +53,21 @@
         android:layout_height="90dp"
         android:layout_above="@+id/textViewSignup"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/box_login_final3"
+        android:background="@drawable/login_final_final"
         tools:layout_editor_absoluteX="12dp"
         tools:layout_editor_absoluteY="436dp" />
 
     <TextView
         android:id="@+id/textViewSignup"
-        android:layout_width="271dp"
+        android:layout_width="wrap_content"
         android:layout_height="51dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="29dp"
         android:fontFamily="@font/poiret_one"
         android:text="Not a member yet? Sign up now!"
         android:textColor="#f9f6f6"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:typeface="normal" />
 
@@ -73,8 +75,8 @@
         android:id="@+id/checkBoxRmbMe"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/forgot_pass"
         android:layout_alignStart="@+id/editTextEmailLogin"
+        android:layout_below="@+id/editTextPasswordLogin"
         android:buttonTint="@color/colorBlue"
         android:shadowColor="@color/black"
         android:text="Remember Me"
@@ -89,16 +91,15 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
-        app:srcCompat="@drawable/studylah_final" />
+        app:srcCompat="@drawable/studylah_final2" />
 
     <ImageView
         android:id="@+id/forgot_pass"
         android:layout_width="208dp"
         android:layout_height="44dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/checkBoxRmbMe"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="180dp"
-        app:srcCompat="@drawable/forgot_final" />
+        app:srcCompat="@drawable/forgot_pass" />
 
 
 </RelativeLayout>
