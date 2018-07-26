@@ -1,5 +1,7 @@
 package com.example.user.studylah;
 
+import android.support.v4.app.INotificationSideChannel;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +12,13 @@ public class User {
     private String email;
     private String bio;
     Map<String, Boolean> hostedSessions = new HashMap<>();
+
+    // Initialise rating system
+    private int stars = 0;
+    private int avgStars;
+    private int numRaters = 0;
+    Map<String, Integer> rated = new HashMap<>();
+
 
     User() {};
 
@@ -45,6 +54,22 @@ public class User {
         this.hostedSessions = hostedSessions;
     }
 
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
+    public void setAvgStars(int avgStars) {
+        this.avgStars = avgStars;
+    }
+
+    public void setNumRaters(int numRaters) {
+        this.numRaters = numRaters;
+    }
+
+    public void setRated(Map<String, Integer> rated) {
+        this.rated = rated;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -67,5 +92,21 @@ public class User {
 
     public Map<String, Boolean> getHostedSessions() {
         return hostedSessions;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public int getAvgStars() {
+        return avgStars;
+    }
+
+    public int getNumRaters() {
+        return numRaters;
+    }
+
+    public Map<String, Integer> getRated() {
+        return rated;
     }
 }

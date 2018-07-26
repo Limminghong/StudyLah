@@ -59,15 +59,26 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Base.Theme.AppCompat"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ChangePassword" />
-        <activity android:name=".OtherProfile" />
-        <activity android:name=".SearchUser"></activity>
+        <activity android:name=".ChangePassword"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".OtherProfile"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SearchUser"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UserFeedback"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,8 @@ public class UserProfile extends AppCompatActivity {
     private TextView mDisplayName;
     private TextView mEmail;
     private TextView mBio;
+    // Ratings
+    private RatingBar mRatingBar;
     // Constants
     private static final int GALLERY_PICK = 1;
     // Storage Reference
@@ -77,6 +80,7 @@ public class UserProfile extends AppCompatActivity {
         mBio = (TextView)findViewById(R.id.bioText);
         mChangeBio = (Button)findViewById(R.id.changeBio);
         mChangeImage = (Button)findViewById(R.id.changeImage);
+        mRatingBar = (RatingBar)findViewById(R.id.userRatingBar);
 
         // Initialise variables
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -97,10 +101,12 @@ public class UserProfile extends AppCompatActivity {
                 String email = user.getEmail();
                 String bio = user.getBio();
                 String imageThumb = user.getImageThumb();
+                int avgStars = user.getAvgStars();
 
                 mDisplayName.setText(name);
                 mEmail.setText(email);
                 mBio.setText(bio);
+                mRatingBar.setRating(avgStars);
 
                 // Load Image
                 if(!imageThumb.equals("default")) {
