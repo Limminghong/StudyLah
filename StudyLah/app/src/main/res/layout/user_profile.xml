@@ -3,76 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    android:layout_height="match_parent">
+    tools:layout_editor_absoluteY="25dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userImage"
         android:layout_width="155dp"
         android:layout_height="141dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginStart="42dp"
         android:layout_marginTop="52dp"
         android:src="@mipmap/ic_launcher_round"
-        app:layout_constraintBottom_toTopOf="@+id/bioText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/userRatingBar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/displayName"
         android:layout_width="196dp"
         android:layout_height="41dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/poiret_one"
         android:gravity="center"
         android:text="Display Name"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintStart_toStartOf="@+id/userRatingBar"
+        app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
     <TextView
         android:id="@+id/bioText"
         android:layout_width="314dp"
         android:layout_height="86dp"
-        android:layout_marginBottom="23dp"
         android:fontFamily="@font/poiret_one"
         android:text="Bio"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/changeBio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+        app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
     <Button
         android:id="@+id/changeImage"
         android:layout_width="180dp"
-        android:layout_height="50dp"
+        android:layout_height="44dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/box_final"
         android:text="Change Image"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeBio" />
 
     <Button
         android:id="@+id/changeBio"
         android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="4dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/box_final"
-        android:textColor="@color/black"
         android:text="Edit Biography"
-        app:layout_constraintBottom_toTopOf="@+id/changeImage"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bioText" />
 
@@ -86,11 +80,18 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.476" />
+        app:layout_constraintTop_toBottomOf="@+id/userRatingBar" />
+
+    <RatingBar
+        android:id="@+id/userRatingBar"
+        android:layout_width="242dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:isIndicator="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displayName" />
 
 </android.support.constraint.ConstraintLayout>

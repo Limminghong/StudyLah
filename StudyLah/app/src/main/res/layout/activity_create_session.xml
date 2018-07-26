@@ -8,6 +8,15 @@
     tools:context=".createSession"
     tools:layout_editor_absoluteY="25dp">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="3dp"
+        android:background="#4FC1E9"
+        app:title="Create Session"
+        app:titleTextColor="@color/white" />
+
     <TextView
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
@@ -95,7 +104,7 @@
         android:id="@+id/textViewModule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/box_login_final2"
         android:fontFamily="@font/poiret_one"
         android:text="Modules: "
@@ -104,7 +113,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/autoModule"
         app:layout_constraintStart_toStartOf="@+id/autoModule"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <AutoCompleteTextView
         android:id="@+id/autoModule"
