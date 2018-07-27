@@ -14,10 +14,10 @@ public class User {
     Map<String, Boolean> hostedSessions = new HashMap<>();
 
     // Initialise rating system
-    private int stars = 0;
-    private int avgStars;
+    private float stars = 0;
+    private float avgStars = 0;
     private int numRaters = 0;
-    Map<String, Integer> rated = new HashMap<>();
+    Map<String, Float> rated = new HashMap<>();
 
 
     User() {};
@@ -66,7 +66,7 @@ public class User {
         this.numRaters = numRaters;
     }
 
-    public void setRated(Map<String, Integer> rated) {
+    public void setRated(Map<String, Float> rated) {
         this.rated = rated;
     }
 
@@ -94,11 +94,11 @@ public class User {
         return hostedSessions;
     }
 
-    public int getStars() {
+    public float getStars() {
         return stars;
     }
 
-    public int getAvgStars() {
+    public float getAvgStars() {
         return avgStars;
     }
 
@@ -106,7 +106,7 @@ public class User {
         return numRaters;
     }
 
-    public Map<String, Integer> getRated() {
+    public Map<String, Float> getRated() {
         return rated;
     }
 }

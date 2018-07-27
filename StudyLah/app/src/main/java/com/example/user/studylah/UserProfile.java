@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -35,10 +34,8 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,7 +98,7 @@ public class UserProfile extends AppCompatActivity {
                 String email = user.getEmail();
                 String bio = user.getBio();
                 String imageThumb = user.getImageThumb();
-                int avgStars = user.getAvgStars();
+                float avgStars = user.getAvgStars();
 
                 mDisplayName.setText(name);
                 mEmail.setText(email);
