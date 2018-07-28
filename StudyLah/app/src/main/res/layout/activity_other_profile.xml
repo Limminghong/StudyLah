@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/blue_background"
     tools:layout_editor_absoluteY="25dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -39,7 +39,7 @@
         android:fontFamily="@font/poiret_one"
         android:text="Bio"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otherEmail" />
@@ -50,9 +50,9 @@
         android:layout_height="44dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/box_final"
+        android:background="@drawable/box_final_final"
         android:text="Give Feedback"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,9 +63,9 @@
         android:layout_width="180dp"
         android:layout_height="44dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/box_final"
+        android:background="@drawable/box_final_final"
         android:text="Rate User"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otherBio" />

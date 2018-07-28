@@ -14,13 +14,14 @@
             android:id="@+id/editInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/box_login_final2"
+            android:background="@drawable/box_without_text"
             android:fontFamily="@font/poiret_one"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
             android:hint="Edit Session Information Here"
             android:inputType="text"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
