@@ -38,7 +38,7 @@
         android:layout_height="86dp"
         android:fontFamily="@font/poiret_one"
         android:text="Bio"
-        android:textColor="@color/white"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

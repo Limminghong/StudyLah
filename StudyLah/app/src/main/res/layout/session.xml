@@ -73,7 +73,7 @@
         android:fontFamily="@font/poiret_one"
         android:text="Module: "
         android:textAlignment="center"
-        android:background="@drawable/blue_background"
+        android:background="@drawable/darkblue_final"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/white"

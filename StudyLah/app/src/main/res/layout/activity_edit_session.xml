@@ -189,7 +189,8 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextViewDate"
         app:layout_constraintEnd_toStartOf="@+id/editTextTimingTo"
         app:layout_constraintStart_toEndOf="@+id/editTextTimingFrom"
-        app:layout_constraintTop_toTopOf="@+id/editTextViewTiming" />
+        app:layout_constraintTop_toTopOf="@+id/editTextViewTiming"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/editButtonDelete"
@@ -259,5 +260,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/editEditTextTiming2"
         app:layout_constraintEnd_toStartOf="@+id/editEditTextTiming2"
         app:layout_constraintStart_toEndOf="@+id/editEditTextTiming"
-        app:layout_constraintTop_toBottomOf="@+id/editTextViewTiming" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextViewTiming"
+        app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

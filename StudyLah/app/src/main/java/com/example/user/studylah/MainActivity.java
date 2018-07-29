@@ -104,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.profile:
                 userProfile();
                 return true;
-            case R.id.feedback:
-                userFeedback();
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -180,12 +177,6 @@ public class MainActivity extends AppCompatActivity {
     // Go to user profile page
     private void userProfile() {
         Intent intent = new Intent(MainActivity.this, UserProfile.class);
-        startActivity(intent);
-    }
-
-    // Go to user profile feedback
-    private void userFeedback() {
-        Intent intent = new Intent(MainActivity.this, UserFeedback.class);
         startActivity(intent);
     }
 
