@@ -3,18 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.user.studylah.MainActivity">
     <item
-        android:id="@+id/search_Users"
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_person_pin_black_24dp"
+        android:iconTint="@color/white"
         android:orderInCategory="1"
+        android:title="Profile" />
+    <item
+        android:id="@+id/search_Users"
+        android:orderInCategory="2"
         android:icon="@drawable/ic_settings_black_24dp"
         android:iconTint="@color/white"
         android:title="Search Users"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/profile"
-        android:orderInCategory="2"
-        android:icon="@drawable/ic_person_pin_black_24dp"
-        android:iconTint="@color/white"
-        android:title="Profile"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_changePassword"
@@ -22,13 +21,6 @@
         android:icon="@drawable/ic_settings_black_24dp"
         android:iconTint="@color/white"
         android:title="Change Password"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/feedback"
-        android:orderInCategory="4"
-        android:icon="@drawable/ic_rate"
-        android:iconTint="@color/white"
-        android:title="Feedback"
         app:showAsAction="never" />
     <item
         android:id="@+id/logout"

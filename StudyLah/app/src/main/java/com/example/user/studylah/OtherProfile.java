@@ -33,7 +33,6 @@ public class OtherProfile extends AppCompatActivity {
     private TextView mOtherName;
     private TextView mOtherEmail;
     private TextView mOtherBio;
-    private Button buttonFeedback;
     private Button buttonRate;
     private RatingBar mOtherBar;
 
@@ -58,7 +57,6 @@ public class OtherProfile extends AppCompatActivity {
         mOtherName = (TextView)findViewById(R.id.otherName);
         mOtherEmail = (TextView)findViewById(R.id.otherEmail);
         mOtherBio = (TextView)findViewById(R.id.otherBio);
-        buttonFeedback = (Button)findViewById(R.id.giveFeedback);
         buttonRate = (Button)findViewById(R.id.rateUser);
         mOtherBar = (RatingBar) findViewById(R.id.otherRatingBar);
 

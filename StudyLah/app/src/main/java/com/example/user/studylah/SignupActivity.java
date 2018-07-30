@@ -126,7 +126,7 @@ public class SignupActivity extends AppCompatActivity {
         createProfile(uid, username, email);
         saveUsername(username);
         // Signup successful, got to main activity
-        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
         startActivity(intent);
         // End the activity
         finish();

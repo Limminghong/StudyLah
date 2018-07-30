@@ -22,6 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
             android:background="@drawable/darkblue_final"
+            android:backgroundTint="@color/colorBlue"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="Let's Study!"
